@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Eniture_FedExLTLFreightQuotes::js/validation.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/fedexltlCommon.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/fedexltlTestconnection.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/fedexltlWarehouse.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/fedexltlDropship.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/fedexltlRAD.js"/>
+        <link src="Eniture_FedExLTLFreightQuotes::js/tagsinput/fedexltl-bootstrap-tagsinput.js"/>
+    </head>
+</page>

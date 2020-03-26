@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Eniture\FedExLTLFreightQuotes\Block\Adminhtml\Product\ProductPlanRestriction" name="product_plan_restriction" template="Eniture_FedExLTLFreightQuotes::product/productplanrestriction.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

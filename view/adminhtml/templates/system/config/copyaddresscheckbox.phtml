@@ -1,0 +1,10 @@
+<input type="hidden" name="<?php echo $block->escapeHtml($block->getNamePrefix()) ?>" value="" /><!-- this is send if nothing is checked -->
+<ul class="checkboxes">
+    <?php foreach ($block->getValues() as $name => $label) : ?>
+        <li>
+            <input type="checkbox" value="<?php echo $block->escapeHtml($name)?>" name="<?php echo $block->escapeHtml($block->getNamePrefix()) ?>[]" id="<?php echo $block->escapeHtml($block->getHtmlId() . '_' . $name) ?>"<?php echo $block->escapeHtml($block->getIsChecked() ? ' checked="checked"' : '') ?>/><label for="<?php echo $block->escapeHtml($block->getHtmlId() . '_' . $name) ?>">
+                <?php echo $block->escapeHtml($label) ?>
+            </label>
+        </li>
+    <?php endforeach;?>
+</ul>

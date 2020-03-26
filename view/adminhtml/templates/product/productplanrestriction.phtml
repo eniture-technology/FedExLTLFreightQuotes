@@ -1,0 +1,36 @@
+<?php
+$planInfo = $block->getPlanInfo();
+$hazmatMsg = $insuranceMsg = "";
+$getPlanMsg = $block->planMsg($planInfo);
+$hazmatMsg = $getPlanMsg['hazmatMsg'];
+$insuranceMsg = $getPlanMsg['insuranceMsg'];
+
+$msg = '<a href="'.$block->enUrl().'" target="_blank" class="required-plan-msg">Standard Plan required</a>';
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'domReady!'
+    ], function ($) {
+        'use strict';
+        var interval = null;
+        interval = setInterval(showMessage, 1000);
+        function showMessage() {
+            if ($('select[name="product[en_hazmat]"]').length) {
+                var hazmatMsg = '<?= /* @noEscape */ ($hazmatMsg === '') ? $msg : '<small>' . $hazmatMsg . '</small>'; ?>';
+                var hzDisable = '<?= /* @noEscape */ ($hazmatMsg === '') ? "yes" : "no"; ?>';
+                $('select[name="product[en_hazmat]"]').after(hazmatMsg);
+                if (hzDisable === 'yes') {
+                    $('select[name="product[en_hazmat]"]').addClass('inactiveLink');
+                }
+                var insuranceMsg = '<?= /* @noEscape */ ($insuranceMsg === '') ? $msg : '<small>' . $insuranceMsg . '</small>'; ?>';
+                var insDisable = '<?= /* @noEscape */ ($insuranceMsg === '') ? "yes" : "no"; ?>';
+                $('select[name="product[en_insurance]"]').after(insuranceMsg);
+                if (insDisable === 'yes') {
+                    $('select[name="product[en_insurance]"]').addClass('inactiveLink');
+                }
+                clearInterval(interval);
+            }
+        }
+    });
+</script>

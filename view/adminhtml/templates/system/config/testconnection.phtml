@@ -1,0 +1,15 @@
+<script>
+    require(['jquery', 'domReady!'], function ($) {
+        let carrierDiv = '#fedexltlconnsettings_first-head';
+        fedexLtCurrentPlanNote($, '<?php echo $block->escapeHtml($block->planNotice()); ?>', carrierDiv);
+        fedexLtNotesToggleHandling($, '<?php echo $block->escapeHtml($block->conMessage(), ['a', 'div']); ?>', '.fedexLt-conn-setting-note', carrierDiv);
+    });
+</script>
+<div class="pp-buttons-container">
+    <button class="primary" id="<?php echo $block->escapeHtml($block->getId()) ?>" connAjaxUrl="<?php echo $block->escapeHtml($block->getAjaxCheckUrl()) ?>">
+        <span><span><span><?php echo $block->escapeHtml($block->getButtonLabel()); ?></span></span></span>
+    </button>
+</div>
+
+<!-- Display Responses Messages -->
+<div id="fedexLt-con-msg" style="display: none; margin-top: 20px; padding-right: 3px;"></div>

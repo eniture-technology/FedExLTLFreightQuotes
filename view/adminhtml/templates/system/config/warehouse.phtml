@@ -1,0 +1,301 @@
+<?php
+$plan = $block->getCurrentPlan();
+$advancedPlan = false;
+$class = 'disabledDiv';
+$disableInput = 'disabled="disabled"';
+if ($plan == 3) {
+    $advancedPlan = true;
+    $class = '';
+    $disableInput = '';
+}
+?>
+<script>
+    require(['jquery', 'domReady!'], function ($) {
+        let carrierDiv = '#fedexLtlWarehouse_second-head';
+        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml($block->planNotice()); ?>', carrierDiv);
+
+        let canAddWh = <?= $block->escapeHtml($block->addWhRestriction()); ?>;
+        fedexLtAddWarehouseRestriction(canAddWh);
+    });
+    const fedexLtAjaxUrl = '<?=  $block->escapeHtml($block->getAjaxUrl()) ?>';
+    const fedexLtAdvancePlan = '<?=  $block->escapeHtml($advancedPlan) ?>';
+</script>
+</form>
+<div class="main-container">
+    <h1>
+        <?= $block->escapeHtml(__('Warehouses')) ?>
+    </h1>
+    <a href="#" id="fedexLt-add-wh-btn" class="add-wh-btn hide-val en-btn" title="<?= $block->escapeHtml(__('Add Warehouse')) ?>">
+        <?= $block->escapeHtml(__('Add')) ?>
+    </a>
+    <div class="wh-text">
+        <p>
+            <?= $block->escapeHtml(__('Warehouses that inventory all products not otherwise identified as drop shipped items. The warehouse with the lowest shipping cost to the destination is used for quoting purposes.')) ?>
+        </p>
+    </div>
+    <div id="fedexLt-wh-msg"></div>
+
+    <table class="warehouse" id="append-warehouse">
+        <thead>
+        <tr>
+            <th>
+                <?= $block->escapeHtml(__('City')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('State')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Zip')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Country')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Action')) ?>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $getWarehouses = $block->dataHelper->fetchWarehouseSecData('warehouse');
+        if ($getWarehouses) {
+            foreach ($getWarehouses as $r) {
+                ?>
+                <tr id="row_<?= $block->escapeHtml($r['warehouse_id']); ?>" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>">
+                    <td>
+                        <?= $block->escapeHtml($r['city']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['state']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['zip']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['country']); ?>
+                    </td>
+                    <td>
+                        <a href="javascript:;" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>" title="<?= $block->escapeHtml(__('Edit')) ?>"
+                           class="fedexLt-edit-wh">
+                            <?= $block->escapeHtml(__('Edit')) ?>
+                        </a> |
+                        <a href="javascript:;" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>" title="<?= $block->escapeHtml(__('Delete')) ?>"
+                           class="fedexLt-del-wh">
+                            <?= $block->escapeHtml(__('Delete')) ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php }
+        } ?>
+        </tbody>
+    </table>
+
+    <hr class="wh-hr">
+</div>
+<!--     Add Popup for new warehouse-->
+<div id="fedexLt-wh-modal" class="add-wh-popup">
+    <form method="post" id="fedexLt-wh-form" enctype="multipart/form-data" autocomplete="off"
+          data-mage-init='{"validation":{}}'>
+
+
+        <div id="fedexLt-wh-modal-msg"></div>
+        <input type="hidden" name="location" value="warehouse">
+        <input type="hidden" name="originId" id="edit-form-id">
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('Zip')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alphanum" title="<?= $block->escapeHtml(__('Zip')) ?>" maxlength="6" name="zip"
+                       placeholder="30214" id="fedexLt-wh-zip">
+            </div>
+        </div>
+
+        <div class="add-wh-input city-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('City')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required" title="<?= $block->escapeHtml(__('City')) ?>" name="city" placeholder="Fayetteville" id="wh-origin-city">
+            </div>
+        </div>
+
+        <div class="add-wh-input city-select" style="display:none;">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('City')) ?>
+            </div>
+            <div class="wh-input">
+                <select id="actname"></select>
+            </div>
+        </div>
+
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('State')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alpha" title="<?= $block->escapeHtml(__('State')) ?>" maxlength="2" name="state" placeholder="GA" id="wh-origin-state">
+            </div>
+        </div>
+
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('Country')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alpha" title="<?= $block->escapeHtml(__('Country')) ?>" maxlength="2"
+                       name="country" placeholder="US" id="wh-origin-country">
+            </div>
+        </div>
+
+        <!--In store Pickup Section-->
+        <h3 class="wh-heading is-heading-left" id="wh-is-heading-left">
+            <?= $block->escapeHtml(__('In-store Pick Up')) ?>
+        </h3>
+        <?php if (!$advancedPlan) : ?>
+            <a class="is-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
+                <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
+            </a>
+        <?php endif; ?>
+
+        <div class="message message-error error wh-instore-miles-postal-err">
+            <?= $block->escapeHtml(__('You must provide Miles or Postal Code.')) ?>
+        </div>
+
+        <div id="disableddiv" class="<?= $block->escapeHtml($class) ?>">
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Enable In-Store Pick Up')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Enable In-Store Pick Up')) ?>" name="instore_enable"
+                           id="enable-instore-pickup" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if address is within (miles):')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer if address is within (miles)')) ?>" class="digits"
+                           maxlength="3" name="is_within_miles" id="within-miles" <?= $block->escapeHtml($disableInput) ?>
+                           onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if postal code matches:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer is postal code matches')) ?>" name="is_postcode_match"
+                           id="postcode-match"
+                           data-role="<?= $block->escapeHtml($advancedPlan ? 'tagsinput' : ''); ?>" <?= $block->escapeHtml($disableInput) ?> >
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Check Out Description:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Check Out Description')) ?>" maxlength="25"
+                           name="is_checkout_descp" placeholder="In-store pick up"
+                           id="checkout-descp" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+        </div>
+        <!--In store Pickup Section End-->
+
+        <!--Local Delivery Section-->
+
+        <div class="row" style="clear: both">
+            <h3 class="wh-heading ld-heading-left" id="wh-ld-heading-left">
+                <?= $block->escapeHtml(__('Local Delivery')) ?>
+            </h3>
+            <?php if (!$advancedPlan) : ?>
+                <a class="ld-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
+                    <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
+                </a>
+            <?php endif; ?>
+        </div>
+
+        <div class="message message-error error wh-local-miles-postals-err">
+            <?= $block->escapeHtml(__('You must provide Miles or Postal Code.')) ?>
+        </div>
+
+        <!--Local Delivery Section Start-->
+        <div id="disableddiv" class="<?= $block->escapeHtml($class) ?>">
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Enable Local Delivery')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Enable Local Delivery')) ?>" name="ld_enable"
+                           id="enable-local-delivery" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if address is within (miles):')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer if address is within (miles)')) ?>" class="digits"
+                           maxlength="3" name="ld_within_miles" value="" id="ld-within-miles" <?= $block->escapeHtml($disableInput) ?>
+                           onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if postal code matches:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer is postal code matches')) ?>"
+                           data-role="<?= $block->escapeHtml($advancedPlan ? 'tagsinput' : ''); ?>" name="ld_postcode_match"
+                           id="ld-postcode-match" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Check Out Description:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Check Out Description')) ?>" maxlength="25"
+                           name="ld_checkout_descp" placeholder="Local delivery"
+                           id="ld-checkout-descp" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Local Delivery Fee')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Local Delivery Fee')) ?>"
+                           class="number validate-fedexLt-decimal-limit-2" maxlength="5" name="ld_fee"
+                           id="ld-fee" <?= $block->escapeHtml($disableInput) ?> onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Suppress other rates')) ?>
+                    <div class="suppressTooltip">[ ? ]
+                        <span
+                            class="suppressTooltiptext"><?= $block->escapeHtml(__("This setting only suppresses rates that would otherwise be returned by the Eniture Technology products.")) ?></span>
+                    </div>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Suppress other rates')) ?>" name="ld_sup_rates"
+                           id="ld-sup-rates" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+        </div>
+        <!--Local Delivery Section End-->
+    </form>
+</div>
+

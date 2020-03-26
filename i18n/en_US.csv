@@ -1,0 +1,61 @@
+"Click <a href=""%1"" target=""_blank"">here</a> to add the Standard Box Sizes module. (<a href=""%1"" target=""_blank"">Learn more</a>)","Click <a href=""""%1"""" target=""""_blank"""">here</a> to add the Standard Box Sizes module. (<a href=""""%1"""" target=""""_blank"""">Learn more</a>)"
+Drop Ships,Drop Ships
+FedEx LTL Freight Quotes,FedEx LTL Freight Quotes
+"Warning! If you delete this location, Drop ship location settings will be disable against products.","Warning! If you delete this location, Drop ship location settings will be disable against products."
+Cancel,Cancel
+OK,OK
+Locations that inventory specific items that are drop shipped to the destination. Use the product's settings page to identify it as a drop shipped item and its associated drop ship location. Orders that include drop shipped items will display a single figure for the shipping rate estimate that is equal to the sum of the cheapest option of each shipment required to fulfill the order.,Locations that inventory specific items that are drop shipped to the destination. Use the product's settings page to identify it as a drop shipped item and its associated drop ship location. Orders that include drop shipped items will display a single figure for the shipping rate estimate that is equal to the sum of the cheapest option of each shipment required to fulfill the order.
+Success! New drop ship added successfully.,Success! New drop ship added successfully.
+Success! Drop ship updated successfully.,Success! Drop ship updated successfully.
+Success! Drop ship deleted successfully.,Success! Drop ship deleted successfully.
+Nickname,Nickname
+City,City
+State,State
+Zip,Zip
+Country,Country
+Action,Action
+Drop Ship,Drop Ship
+Error!,Error!
+Drop ship already exists.,Drop ship already exists.
+Please select US or CA address.,Please select US or CA address.
+Add,Add
+Edit,Edit
+Delete,Delete
+"Click <a href=""%1"" target=""_blank"">here</a> to add the Auto detect residential addresses module.(<a href=""%1"" target=""_blank"">Learn more</a>)","Click <a href=""""%1"""" target=""""_blank"""">here</a> to add the Auto detect residential addresses module.(<a href=""""%1"""" target=""""_blank"""">Learn more</a>)"
+Success!,Success!
+The test resulted in a successful connection.,The test resulted in a successful connection.
+Error!,Error!
+The credentials entered did not result in a successful test. Confirm your credentials and try again.,The credentials entered did not result in a successful test. Confirm your credentials and try again.
+The User Guide for this application is maintained on the publisher's website. To view it click <a href='%1' target='_blank'>here</a> or paste the following link into your browser.,The User Guide for this application is maintained on the publisher's website. To view it click <a href='%1' target='_blank'>here</a> or paste the following link into your browser.
+Warehouses,Warehouses
+Warehouses that inventory all products not otherwise identified as drop shipped items. The warehouse with the lowest shipping cost to the destination is used for quoting purposes.,Warehouses that inventory all products not otherwise identified as drop shipped items. The warehouse with the lowest shipping cost to the destination is used for quoting purposes.
+Success! New warehouse added successfully.,Success! New warehouse added successfully.
+Success! Warehouse updated successfully.,Success! Warehouse updated successfully.
+Success! Warehouse deleted successfully.,Success! Warehouse deleted successfully.
+Warehouse,Warehouse
+Warehouse already exists.,Warehouse already exists.
+Add Drop Ship,Add Drop Ship
+Add Warehouse,Add Warehouse
+FedEx Home Delivery,FedEx Home Delivery
+FedEx Ground,FedEx Ground
+FedEx Express Saver,FedEx Express Saver
+FedEx 2Day,FedEx 2Day
+FedEx 2Day AM,FedEx 2Day AM
+FedEx Standard Overnight,FedEx Standard Overnight
+FedEx Priority Overnight,FedEx Priority Overnight
+FedEx First Overnight,FedEx First Overnight
+FedEx International Ground,FedEx International Ground
+FedEx International Economy,FedEx International Economy
+FedEx International Economy Distribution,FedEx International Economy Distribution
+FedEx International Economy Freight,FedEx International Economy Freight
+FedEx International First,FedEx International First
+FedEx International Priority,FedEx International Priority
+FedEx International Priority Distribution,FedEx International Priority Distribution
+FedEx International Priority Freight,FedEx International Priority Freight
+FedEx International Distribution Freight,FedEx International Distribution Freight
+FedEx One Rate Express Saver,FedEx One Rate Express Saver
+FedEx One Rate 2Day,FedEx One Rate 2Day
+FedEx One Rate 2Day AM,FedEx One Rate 2Day AM
+FedEx One Rate Standard Overnight,FedEx One Rate Standard Overnight
+FedEx One Rate Priority Overnight,FedEx One Rate Priority Overnight
+FedEx One Rate First Overnight,FedEx One Rate First Overnight

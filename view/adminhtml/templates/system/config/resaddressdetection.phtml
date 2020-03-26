@@ -1,0 +1,24 @@
+<script>
+    //type="text/x-magento-init"
+    require(['jquery', 'jquery/ui', 'domReady!'], function ($) {
+        const carrierDiv = '#fedexLtlQuoteSetting_third-head';
+        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml(__($block->fedexLtlPlanNotice())); ?>', carrierDiv);
+        fedexLtPlanQuoteRestriction('<?= $block->escapeHtml(__($block->planRstrctnQuoteSettng(), ['a', 'div'])); ?>');
+    });
+</script>
+<?php
+
+if ($block->enable == 'yes') {
+    $block->setTemplate('Eniture_ResidentialAddressDetection::/system/config/residentialaddressdetection.phtml');
+    echo $block->getHtml();
+} else {
+    ?>
+    <div class="rad">
+        <p>
+            <?=
+            $block->escapeHtml(__('Click <a href="%1" target="_blank">here</a> to add the Auto detect residential addresses module.(<a href="%2" target="_blank">Learn more</a>)', "https://eniture.com/magento2-residential-address-detection/", "https://eniture.com/magento2-residential-address-detection/#documentation"), ['a', 'div'])
+            ?>
+        </p>
+    </div>
+    <?php
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+    <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>          
+        <referenceContainer name="left">
+            <referenceBlock name="sales_order_tabs">
+                <action method="addTabAfter">
+                    <argument name="name" xsi:type="string">order_fedexltl</argument>
+                    <argument name="block" xsi:type="string">Eniture\FedExLTLFreightQuotes\Block\Adminhtml\Order\View\Tab\OrderDetailWidget</argument>
+                    <argument name="after" xsi:type="string">order_history</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

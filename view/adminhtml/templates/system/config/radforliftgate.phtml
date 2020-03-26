@@ -1,0 +1,22 @@
+<?php
+if ($block->enable == 'yes') {
+    $isChecked = $block->getIsChecked();
+    $yes = $no = '';
+    $isChecked == '1' ? $yes = 'selected="selected"' : $no = 'selected="selected"';
+    ?>
+        <select id="fedexLtlQuoteSetting_third_RADforLiftgate" 
+                name="groups[third][fields][RADforLiftgate][value]" 
+                class=" select admin__control-select" 
+                data-ui-id="select-groups-third-fields-radforLiftgate-value">
+            <option value="1" <?= $yes; ?>>Yes</option>
+            <option value="0" <?= $no ?>>No</option>
+        </select>
+        
+<?php } else { ?>      
+        <div class="rad">
+            <p>
+                <?= $block->escapeHtml(__('Click <a href="%1" target="_blank">here</a> to add the Auto detect residential addresses module.(<a href="%2" target="_blank">Learn more</a>)', "https://eniture.com/magento2-residential-address-detection/", "https://eniture.com/magento2-residential-address-detection/#documentation"), ['a', 'div'])
+                ?>
+            </p>
+        </div>
+<?php }

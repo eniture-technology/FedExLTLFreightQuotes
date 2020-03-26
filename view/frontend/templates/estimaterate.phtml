@@ -1,0 +1,33 @@
+<style>
+    .getrate {
+        margin: 0px 0px 15px;
+        width: 100%;
+    }
+</style>
+<script type="text/x-magento-init">
+{
+"*": {
+"estimateRate": {}
+    }
+}
+
+</script>
+
+<script>
+    require(['jquery', 'domReady!'], function ($) {
+
+        var interval = null;
+        interval = setInterval(doMagic, 1000);
+
+        function doMagic() {
+            if ($("#block-summary [name=country_id]").length) {
+                $('#getrate').prop('disabled', false);
+                jQuery('[name=region_id], [name=postcode], [name=city]').unbind();
+                $('#getrate').trigger('click');
+                clearInterval(interval);
+            } else {
+                $('#getrate').prop('disabled', true);
+            }
+        }
+    });
+</script>

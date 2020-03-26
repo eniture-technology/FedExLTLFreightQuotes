@@ -1,0 +1,500 @@
+.adv-plan-err.main_container {
+    border-collapse: separate;
+    margin-left: -260px;
+    width: 200% !important;
+}
+
+.main-container {
+    border-collapse: separate;
+    margin-left: -260px;
+    width: 200% !important;
+}
+
+.conn-setting-note, .fedex-onerate-note {
+    min-height: 23px !important;
+    padding: 8px 8px 8px 15px !important;
+    font-size: .85em !important;
+    border: 1px solid #ffd967 !important;
+    background: #fffbf0;
+    color: #333 !important;
+    margin-bottom: 10px !important;
+    line-height: 2;
+    margin-top: 10px;
+}
+
+.warehouse {
+    background: #f5f5f5 none repeat scroll 0 0;
+    border-collapse: separate;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 10px;
+    text-align: left;
+    width: 100% !important;
+}
+
+.wh-hr {
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+/*.wh-heading, .ds-heading{*/
+/*    font-weight: bold !important;*/
+/*}*/
+
+.warehouse th {
+    background: #514943 none repeat scroll 0 0;
+    border-left: 1px solid #8a837f;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px;
+    position: relative;
+}
+
+.warehouse td {
+    padding: 8px !important;
+    position: relative;
+    transition: all 300ms;
+    border-left: 1px solid #fff;
+}
+
+/*add warehouse popup style Start*/
+
+.fedexLt-wh-overlay:target {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1000;
+}
+
+.add-wh-popup {
+    /*margin: 70px auto;*/
+    display: none;
+    padding: 20px;
+    background: #ffffff;
+    /*width: 50%;*/
+    /*position: relative;*/
+    /*transition: all 5s ease-in-out;*/
+}
+
+.add-wh-popup .add-wh-input {
+    width: 100%;
+    margin: 0px 0px 20px;
+    display: inline-flex;
+}
+
+.wh-input-label {
+    width: 40%;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 30px;
+}
+
+.wh-input {
+    width: 60% !important;
+}
+
+.wh-input input[type="text"],
+.wh-input input[type="text"]:focus,
+.wh-input select {
+    /*box-sizing: border-box;*/
+    border: 1px solid #adadad;
+    /*border-radius: 1px;*/
+    box-shadow: none;
+    padding: .6rem 1rem .6rem;
+    /*font-weight: 500;*/
+    /*font-size: 14px;*/
+    height: 33px;
+    width: 100%;
+}
+
+._keyfocus .wh-input input:focus {
+    box-shadow: none;
+}
+
+/*.wh-input input:focus{*/
+/*    border-color: #add8e6;*/
+/*}*/
+.add-wh-popup .content .add-wh-input select {
+    padding: 5px;
+}
+
+.fedexLt-wh-er-msg, .fedexLt-ds-er-msg, .wh-instore-miles-postal-err, .wh-local-miles-postals-err, .ds-instore-miles-postal-err, .ds-local-miles-postals-err {
+    display: none;
+    clear: both;
+    margin: 0 0 10px !important;
+}
+
+/*add warehouse popup style End*/
+
+.en-btn,
+button.en-btn:active,
+button.en-btn:focus {
+    background: #eb5202 !important;
+    border-color: #eb5202;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    margin-bottom: 10px !important;
+    padding: 7px 20px;
+    text-decoration: none;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.en-btn:hover {
+    color: #fff;
+    text-decoration: none;
+    background: #ba4000;
+    border-color: #b84002;
+}
+
+.fedexLt-wh-msg,
+.fedexLt-ds-msg {
+    display: none;
+}
+
+.wh-text {
+    font-size: 14px;
+    margin: 20px 0 0;
+    width: 100%;
+}
+
+#row_fedexLtlUserGuide_fourth_fedexLTLUserGuide .label {
+    display: none;
+}
+
+#row_fedexLtlUserGuide_fourth_fedexLTLUserGuide .value {
+    width: 100%;
+}
+
+#append-dropship th, #append-dropship td, #append-warehouse th, #append-warehouse td {
+    text-align: center;
+}
+
+.form-btns {
+    float: right;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.form-btns input[type="submit"] {
+    float: right;
+}
+
+label[for="origin_zip"]:after,
+label[for="origin_city"]:after,
+label[for="origin_state"]:after,
+label[for="origin_country"]:after {
+    content: " *";
+    color: red;
+}
+
+label[for="fedexltlconnsettings_first_fedexLtlAccountNumber"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlMeterNumber"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlPassword"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlAuthenticationKey"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlShipperAccountNumber"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlBillingAddress"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalAddress"]:after,
+label[for="fedexltlconnsettings_first_fedexLtlLicenseKey"]:after {
+    content: '*';
+    color: red;
+    padding: 5px;
+}
+
+#fedexLtlQuoteSetting_third_fedexRatespublish,
+#fedexLtlQuoteSetting_third_fedexRatesnegotiate {
+    margin: 0px -8px 0px !important;
+}
+
+#row_fedexLtlQuoteSetting_third_fedexRates td.value div.admin__field {
+    padding-top: 0.05rem !important;
+}
+
+#fedexltlconnsettings_first span {
+    margin: 8px 0px 0px;
+}
+
+#fedexLtlQuoteSetting_third_fedexRateSourcenegotiate {
+    margin: 0px -8px 15px !important;
+}
+
+#fedexLtlQuoteSetting_third_fedexRateSourceretail {
+    margin: 0px -8px 0px !important;
+}
+
+.order-detail-hdng {
+    text-decoration: underline;
+    margin-top: 20px;
+}
+
+.en-order-info-ul {
+    margin: 0px 20px 5px;
+}
+
+.en-order-info-ul
+.en-order-info-list {
+    list-style: disc;
+}
+
+.order-info-hr {
+    margin: 20px 0px 25px;
+}
+
+.list-item {
+    display: list-item;
+}
+
+/*#row-Eniture-Menu-Option-section-three-AutoDetectResidentialAddress .label{
+    display : none;
+}*/
+
+
+#row-Eniture-Menu-Option-section-three-AutoDetectResidentialAddress .value,
+#row-Eniture-Menu-Option-section-three-AutoDetectResidentialAddress .value > * {
+    width: 98% !important;
+}
+
+label[for='Eniture-Menu-Option-section-three-AutoDetectResidentialAddress'] {
+    /*display: none;*/
+    content: '';
+}
+
+.warehouseSection, .dropshipSection {
+    height: 70%;
+    width: 50%;
+}
+
+.disabledDiv input, .disabled-bootstrap-tagsinput {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.is_heading_left, .ld_heading_left {
+    float: left;
+    margin: 0 !important;
+    font-weight: bold !important;
+}
+
+.is_heading_right, .ld_heading_right {
+    float: right;
+    color: red;
+    margin: 0 33.5% 0 0 !important;
+    font-weight: bold !important;
+}
+
+.is_heading_right:hover, .ld_heading_right:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.wh-input input[type="checkbox"] {
+    margin-top: 8px !important;
+}
+
+.add-asterisk::after {
+    content: ' *';
+    color: red;
+}
+
+.inactiveLink {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.required-plan-msg {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.required-plan-msg:hover {
+    text-decoration: none;
+    color: red;
+}
+
+.adv-plan-err {
+    position: absolute;
+    margin-left: 0% !important;
+    margin-top: 0%;
+}
+
+.std-plan-err {
+    /*position: absolute;*/
+    margin-left: 0% !important;
+    margin-top: 0%;
+}
+
+.tag.label.label-info span {
+    float: right;
+    margin: 0;
+}
+
+.row {
+    margin-top: 30px;
+}
+
+.fedexLt-add-wh-modal .bootstrap-tagsinput,
+.fedexLt-add-ds-modal .bootstrap-tagsinput {
+    text-align: left;
+    border-radius: 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border-color: #adadad !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin: 0;
+}
+
+.fedexLt-add-wh-modal .bootstrap-tagsinput input,
+.fedexLt-add-ds-modal .bootstrap-tagsinput input {
+    width: auto !important;
+    margin: 0 !important;
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.fedexLt-add-wh-modal .bootstrap-tagsinput .tag.label.label-info,
+.fedexLt-add-ds-modal .bootstrap-tagsinput .tag.label.label-info {
+    display: inline-block;
+    padding: 2px 3px 3px 4px !important;
+    border-radius: 5px;
+    background-color: #ccc;
+    vertical-align: middle !important
+}
+
+.fedexLt-add-wh-modal .bootstrap-tagsinput .tag.label.label-info span,
+.fedexLt-add-ds-modal .bootstrap-tagsinput .tag.label.label-info span {
+    text-align: right;
+    float: none;
+}
+
+label[for="fedexLtQuoteSetting_third_symbolicHndlngFee"] {
+    display: none;
+}
+
+.enable_checkbox {
+    margin-top: 20px !important;
+    margin-right: 59% !important;
+    margin-bottom: 10px !important;
+}
+
+#fedexLTLWarehouseForm, #fedexLTLDropshipForm {
+    width: 92%;
+
+}
+
+.row {
+    margin-top: 30px;
+}
+
+
+#fedexLtlQuoteSetting_third_fedexLtlQuoteServices {
+    height: 70px;
+}
+
+label[for='fedexLtlQuoteSetting_third_fedexLtlDiscountsnegotiate'] {
+    padding-left: 0px;
+}
+
+#fedexLtlQuoteSetting_third tr td.label label {
+    line-height: 2;
+}
+
+#fedexLtlQuoteSetting_third_fedexLtlDiscountsnegotiate,
+#fedexLtlQuoteSetting_third_fedexLtlDiscountspromotion {
+    margin-left: -20px;
+}
+
+/*.accordion .config .label span[data-config-scope]::before {*/
+/*    display: none;*/
+/*}*/
+
+.accordion .config .label span[data-config-scope]::before {
+    display: none;
+}
+
+/*This css has been written specific for Magwento 2.3.2
+ As in this version Fields without labels do not save in
+ DB. So for consistency and symmetry in Design/UI labels
+ are given but hidden using CSS*/
+label[for="fedexLtlQuoteSetting_third_symbolicHndlngFee"],
+label[for="fedexLtlQuoteSetting_third_discountPercent"],
+label[for="fedexLtlQuoteSetting_third_holdAtTerminalFee"],
+label[for="fedexLtlQuoteSetting_third_holdAtTerminalFeeSymbol"],
+label[for="fedexltlconnsettings_first_fedexLtlBillingCity"],
+label[for="fedexltlconnsettings_first_fedexLtlBillingState"],
+label[for="fedexltlconnsettings_first_fedexLtlBillingZip"],
+label[for="fedexltlconnsettings_first_fedexLtlBillingCountry"],
+label[for="fedexltlconnsettings_first_fedexLtlCopyBillAddress"],
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalCity"],
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalState"],
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalZip"],
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalCountry"] {
+    display: none;
+}
+
+
+/* Tooltip container */
+.suppressTooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Tooltip text */
+.fedexLt-add-wh-modal .suppressTooltip .suppressTooltiptext,
+.fedexLt-add-ds-modal .suppressTooltip .suppressTooltiptext {
+    visibility: hidden;
+    width: 370px;
+    color: #000;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-weight: 400;
+    top: 80%;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.suppressTooltip:hover .suppressTooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.fedexLt-add-wh-modal .modal-inner-wrap,
+.fedexLt-add-ds-modal .modal-inner-wrap {
+    width: 45% !important;
+}
+
+.save-wh-ds {
+    margin-right: 6.8%;
+}
+
+/*ODW Page Styles*/
+
+.order-info-hr {
+    margin: 20px 0px 25px;
+}
+
+.order-detail-hdng {
+    text-decoration: underline;
+    margin-top: 20px;
+}
+
+.list-item {
+    display: list-item;
+}

@@ -1,0 +1,12 @@
+<script>
+    require(['jquery', 'jquery/ui', 'domReady!'], function ($) {
+        const carrierDiv = '#fedexLtlUserGuide_fourth-head';
+        fedexLtCurrentPlanNote($, '<?php echo $block->escapeHtml($block->fedexLtlPlanNotice()); ?>', carrierDiv);
+    });
+</script>
+<div class="user_guide">
+    <p>
+        <?= $block->escapeHtml(__("The User Guide for this application is maintained on the publisher's website. To view it click <a href='%1' target='_blank'>here</a> or paste the following link into your browser.", "https://eniture.com/magento2-fedex-ltl-freight/#documentation"), ['a', 'div']) ?>
+    </p>
+    <?= $block->escapeHtml("https://eniture.com/magento2-fedex-ltl-freight/#documentation") ?>
+</div>

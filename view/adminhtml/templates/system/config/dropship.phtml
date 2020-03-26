@@ -1,0 +1,314 @@
+<?php
+$plan = $block->getCurrentPlan();
+$advancedPlan = false;
+$class = 'disabledDiv';
+$disableInput = 'disabled="disabled"';
+if ($plan == 3) {
+    $advancedPlan = true;
+    $class = '';
+    $disableInput = '';
+}
+?>
+<script>
+    var fedexLtDsAjaxUrl = '<?= $block->escapeHtml($block->getDsAjaxUrl()) ?>';
+</script>
+<div class="main-container">
+    <h1>
+        <?= $block->escapeHtml(__('Drop Ships')) ?>
+    </h1>
+
+    <a href="#add-ds-btn" class="en-btn" id="fedexLt-add-ds-btn" title="<?= $block->escapeHtml(__('Add Drop Ship')) ?>">
+        <?= $block->escapeHtml(__('Add')) ?>
+    </a>
+    <div class="wh-text ds">
+        <p>
+            <?= $block->escapeHtml(__("Locations that inventory specific items that are drop shipped to the destination. Use the product's settings page to identify it as a drop shipped item and its associated drop ship location. Orders that include drop shipped items will display a single figure for the shipping rate estimate that is equal to the sum of the cheapest option of each shipment required to fulfill the order.")) ?>
+        </p>
+    </div>
+
+    <div id="fedexLt-ds-msg"></div>
+
+    <table class="warehouse" id="append-dropship">
+        <thead>
+        <tr>
+            <th>
+                <?= $block->escapeHtml(__('Nickname')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('City')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('State')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Zip')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Country')) ?>
+            </th>
+            <th>
+                <?= $block->escapeHtml(__('Action')) ?>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $getDropships = $block->dataHelper->fetchWarehouseSecData('dropship');
+        if ($getDropships) {
+            foreach ($getDropships as $r) { ?>
+                <tr id="row_<?= $block->escapeHtml($r['warehouse_id']); ?>" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>">
+                    <td>
+                        <?= $block->escapeHtml($r['nickname']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['city']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['state']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['zip']); ?>
+                    </td>
+                    <td>
+                        <?= $block->escapeHtml($r['country']); ?>
+                    </td>
+                    <td>
+                        <a href="javascript:;" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>" title="<?= $block->escapeHtml(__('Edit')) ?>"
+                           class="fedexLt-edit-ds">
+                            <?= $block->escapeHtml(__('Edit')) ?>
+                        </a> |
+                        <a href="javascript:;" data-id="<?= $block->escapeHtml($r['warehouse_id']); ?>" title="<?= $block->escapeHtml(__('Delete')) ?>"
+                           class="fedexLt-del-ds">
+                            <?= $block->escapeHtml(__('Delete')) ?>
+                        </a>
+                    </td>
+                </tr>
+                <?php
+            }
+        } ?>
+        </tbody>
+    </table>
+</div>
+<!-- Add Popup for new dropship -->
+<div id="fedexLt-ds-modal" class="add-wh-popup">
+
+    <form method="post" id="fedexLt-ds-form" enctype="multipart/form-data" autocomplete="off"
+          data-mage-init='{"validation":{}}'>
+
+        <div id="fedexLt-ds-modal-msg"></div>
+        <input type="hidden" name="location" value="dropship">
+        <input type="hidden" name="dropshipId" id="ds-edit-form-id">
+
+        <div class="add-wh-input">
+            <div class="wh-input-label">
+                <?= $block->escapeHtml(__('Nickname')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="input-text" title="<?= $block->escapeHtml(__('Nickname')) ?>" value="" name="nickname"
+                       placeholder="Nickname" id="fedexLt-ds-nickname">
+            </div>
+        </div>
+
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('Zip')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alphanum" title="<?= $block->escapeHtml(__('Zip')) ?>" maxlength="6" name="zip"
+                       placeholder="30214" id="fedexLt-ds-zip">
+            </div>
+        </div>
+
+        <div class="add-wh-input city-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('City')) ?>
+            </div>
+            <div class="wh-input">
+                <input class="required" type="text" title="<?= $block->escapeHtml(__('City')) ?>" name="city" placeholder="Fayetteville"
+                       id="ds-city">
+            </div>
+        </div>
+
+        <div class="add-wh-input city-select" style="display:none;">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('City')) ?>
+            </div>
+            <div class="wh-input">
+                <select id="ds-actname" value=""></select>
+            </div>
+        </div>
+
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('State')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alpha" title=<?= $block->escapeHtml(__('State')) ?> maxlength="2"
+                       class="alphaonly"
+                       name="state" placeholder="GA" id="ds-state">
+            </div>
+        </div>
+
+        <div class="add-wh-input">
+            <div class="wh-input-label add-asterisk">
+                <?= $block->escapeHtml(__('Country')) ?>
+            </div>
+            <div class="wh-input">
+                <input type="text" class="required validate-alpha" title=<?= $block->escapeHtml(__('Country')) ?> maxlength="2"
+                       name="country"
+                       placeholder="US" id="ds-country">
+            </div>
+        </div>
+
+        <!--In store Pickup Section-->
+        <h2 class="wh-heading is-heading-left" id="ds-is-heading-left">
+            <?= $block->escapeHtml(__('In-store Pick Up')) ?>
+        </h2>
+
+        <?php if (!$advancedPlan) : ?>
+            <a class="is-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
+                <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
+            </a>
+        <?php endif; ?>
+
+        <div class="message message-error error ds-instore-miles-postal-err">
+            <?= $block->escapeHtml(__('You must provide Miles or Postal Code.')) ?>
+        </div>
+
+        <div id="disableddiv" class="<?= $block->escapeHtml($class) ?>">
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Enable In-Store Pick Up')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Enable In-Store Pick Up')) ?>" name="instore_enable"
+                           id="ds-enable-instore-pickup" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if address is within (miles):')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer if address is within (miles)')) ?>" class="digits"
+                           maxlength="3"
+                           name="is_within_miles" id="ds-within-miles" <?= $block->escapeHtml($disableInput) ?> onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if postal code matches:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer is postal code matches')) ?>"
+                           data-role="<?= $block->escapeHtml($advancedPlan ? 'tagsinput' : ''); ?>" name="is_postcode_match"
+                           id="ds-postcode-match" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Check Out Description:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Check Out Description')) ?>" maxlength="25"
+                           name="is_checkout_descp"
+                           placeholder="In-store pick up" id="ds-checkout-descp" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+        </div>
+        <!--In store Pickup Section End-->
+
+        <!--Local Delivery Section-->
+
+        <div class="row" style="clear: both">
+            <h2 class="wh-heading ld-heading-left" id="ds-ld-heading-left">
+                <?= $block->escapeHtml(__('Local Delivery')) ?>
+            </h2>
+            <?php if (!$advancedPlan) : ?>
+                <a class="ld-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
+                    <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
+                </a>
+            <?php endif; ?>
+        </div>
+
+        <div class="message message-error error ds-local-miles-postals-err">
+            <?= $block->escapeHtml(__('You must provide Miles or Postal Code.')) ?>
+        </div>
+
+        <div id="disableddiv" class="<?= $block->escapeHtml($class) ?>">
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Enable Local Delivery')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Enable Local Delivery')) ?>" name="ld_enable"
+                           id="ds-enable-local-delivery" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if address is within (miles):')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer if address is within (miles)')) ?>" class="digits"
+                           maxlength="3"
+                           name="ld_within_miles" id="ds-ld-within-miles" <?= $block->escapeHtml($disableInput) ?> onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Offer if postal code matches:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Offer is postal code matches')) ?>"
+                           data-role="<?= $block->escapeHtml($advancedPlan ? 'tagsinput' : ''); ?>" name="ld_postcode_match"
+                           id="ds-ld-postcode-match" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Check Out Description:')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Check Out Description')) ?>" maxlength="25"
+                           name="ld_checkout_descp"
+                           placeholder="Local delivery" id="ds-ld-checkout-descp" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Local Delivery Fee')) ?>
+                </div>
+                <div class="wh-input">
+                    <input type="text" title="<?= $block->escapeHtml(__('Local Delivery Fee')) ?>"
+                           class="number validate-fedexLt-decimal-limit-2" maxlength="5"
+                           name="ld_fee" id="ds-ld-fee" <?= $block->escapeHtml($disableInput) ?> onpaste="return false">
+                </div>
+            </div>
+
+            <div class="add-wh-input">
+                <div class="wh-input-label">
+                    <?= $block->escapeHtml(__('Suppress other rates')) ?>
+                    <div class="suppressTooltip">[ ? ]
+                        <span
+                            class="suppressTooltiptext"><?= $block->escapeHtml(__("This setting only suppresses rates that would otherwise be returned by the Eniture Technology products.")) ?></span>
+                    </div>
+                </div>
+                <div class="wh-input">
+                    <input type="checkbox" title="<?= $block->escapeHtml(__('Suppress other rates')) ?>" class="enable-checkbox"
+                           name="ld_sup_rates"
+                           id="ds-ld-sup-rates" <?= $block->escapeHtml($disableInput) ?>>
+                </div>
+            </div>
+        </div>
+        <!--Local Delivery Section End-->
+    </form>
+</div>

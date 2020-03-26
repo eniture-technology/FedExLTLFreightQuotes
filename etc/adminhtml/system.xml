@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   Shipping
+ * @package    Eniture_FedExLTLFreightQuotes
+ * @author     john@eniture-dev.com
+ * @website    http://ess.eniture.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="FedExLTLFreightQuotes" translate="label" sortOrder="10">
+            <label>Eniture - FedEx LTL Freight Quotes</label>
+        </tab>
+
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="ENFedExLTL" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Eniture - FedEx LTL Freight Quotes</label>
+
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled For Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+
+        <section id="fedexltlconnsettings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Connection Settings</label>
+            <tab>FedExLTLFreightQuotes</tab>
+            <resource>Eniture_FedExLTLFreightQuotes::config</resource>
+            <group id="first" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Connection Settings</label>
+
+                <field id="fedexLtlAccountNumber" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Account Number</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlMeterNumber" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Meter Number</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlPassword" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlAuthenticationKey" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Authentication Key</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlShipperAccountNumber" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipper Account Number</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlBillingAddress" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Address</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlBillingCity" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing City</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlBillingState" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing State</label>
+                    <validate>required-entry validate-length maximum-length-2</validate>
+                </field>
+
+                <field id="fedexLtlBillingZip" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Zip</label>
+                    <validate>required-entry validate-length maximum-length-6</validate>
+                </field>
+
+                <field id="fedexLtlBillingCountry" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing Country</label>
+                    <validate>required-entry validate-length maximum-length-2</validate>
+                </field>
+
+                <field id="fedexLtlCopyBillAddress" translate="label" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Copy Billing Adress</label>
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\CopyBillingAddress</frontend_model>
+                </field>
+
+                <field id="fedexLtlPhysicalAddress" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Physical Address</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlPhysicalCity" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Physical City</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlPhysicalState" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Physical State</label>
+                    <validate>required-entry validate-length maximum-length-2</validate>
+                </field>
+
+                <field id="fedexLtlPhysicalZip" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Physical Zip</label>
+                    <validate>required-entry validate-length maximum-length-6</validate>
+                </field>
+
+                <field id="fedexLtlPhysicalCountry" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Physical Country</label>
+                    <validate>required-entry validate-length maximum-length-2</validate>
+                </field>
+
+                <field id="fedexLtlThirdPartyAccountNumber" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Third Party Account Number</label>
+                </field>
+
+                <field id="fedexLtlLicenseKey" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Plugin License Key</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="fedexLtlTestConnection" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\TestConnection</frontend_model>
+                </field>
+            </group>
+        </section>
+
+        <section id="fedexLtlWarehouse" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Warehouses</label>
+            <tab>FedExLTLFreightQuotes</tab>
+            <resource>Eniture_FedExLTLFreightQuotes::config</resource>
+            <group id="second" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Warehouses</label>
+                <field id="fedexLTLWarehouse" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\WarehouseTable</frontend_model>
+                </field>
+                <field id="fedexLTLDropship" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\DropshipTable</frontend_model>
+                </field>
+            </group>
+        </section>
+
+        <section id="fedexLtlQuoteSetting" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quote Settings</label>
+            <tab>FedExLTLFreightQuotes</tab>
+            <resource>Eniture_FedExLTLFreightQuotes::config</resource>
+            <group id="third" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Settings</label>
+                <field id="fedexLtlLabelAs" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label As</label>
+                    <validate>validate-length maximum-length-50</validate>
+                    <comment><![CDATA[What the user sees during checkout e.g. "Freight". Leave blank to display carrier name.]]></comment>
+
+                </field>
+                <field id="fedexLtlQuoteServices" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Service Options</label>
+                    <can_be_empty>1</can_be_empty>
+                    <source_model>Eniture\FedExLTLFreightQuotes\Model\Source\QuoteServices</source_model>
+                </field>
+                <field id="showDlvryEstimate" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Delivery Estimate</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="residentialDlvry" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Always Quote Residential Delivery</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="residentialAddressDetect" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Residential address detection</label>
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\ResidentialAddressDetection</frontend_model>
+                </field>
+                <field id="liftGateDlvry" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Always quote lift gate delivery</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="OfferLiftgateAsAnOption" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Offer lift gate delivery as an option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="RADforLiftgate" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Always include lift gate delivery when a residential address is detected</label>
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\RADforLiftgate</frontend_model>
+                </field>
+                <field id="HoldAtTerminal" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hold At Terminal</label>
+                    <comment><![CDATA[Offer Hold At Terminal as an option]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="holdAtTerminalFee" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hold At Terminal Fee</label>
+                    <validate>validate-number validate-decimal</validate>
+                    <depends>
+                        <field id="HoldAtTerminal">1</field>
+                    </depends>
+                </field>
+                <field id="holdAtTerminalFeeSymbol" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hold At Terminal Fee Symbol</label>
+                    <source_model>Eniture\FedExLTLFreightQuotes\Model\Source\HandlingFee</source_model>
+                    <depends>
+                        <field id="HoldAtTerminal">1</field>
+                    </depends>
+                    <comment><![CDATA[Adjust the price of the Hold At Terminal option. Enter an amount e.g 3.75 or 15 and select the quantifier e.g Flat Rate or Percentage. Leave blank to use the price returned by the carrier.]]></comment>
+                </field>
+
+                <field id="hndlngFee" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Handling Fee / Markup</label>
+                    <validate>validate-number validate-decimal</validate>
+                </field>
+                <field id="symbolicHndlngFee" translate="label" type="select" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fee Type</label>
+                    <source_model>Eniture\FedExLTLFreightQuotes\Model\Source\HandlingFee</source_model>
+                </field>
+                <field id="fedexLtlDiscounts" translate="label" type="radios" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discounts</label>
+                    <source_model>Eniture\FedExLTLFreightQuotes\Model\Source\FedexLtlDiscounts</source_model>
+                </field>
+                <field id="discountPercent" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Promotional discount percentage</label>
+                    <validate>validate-number validate-decimal</validate>
+                    <comment><![CDATA[Promotional discount percentage.]]></comment>
+                    <depends>
+                        <field id="fedexLtlDiscounts" separator="|">promotion</field>
+                    </depends>
+                </field>
+                <field id="weightExeeds" translate="label" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return LTL quotes when an order's parcel shipment weight exceeds 150 lbs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[When selected, the LTL Freight Quote plugin will return quotes when an order's total weight exceeds 150 lbs (the maximum permitted by FedEx and UPS), even if none of the products have settings to indicate that it will ship LTL. To increase the accuracy of the returned quote(s), all products should have accurate weights and dimensions.]]></comment>
+                </field>
+            </group>
+        </section>
+
+        <section id="fedexLtlUserGuide" translate="label" type="text" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>User Guide</label>
+            <tab>FedExLTLFreightQuotes</tab>
+            <resource>Eniture_FedExLTLFreightQuotes::config</resource>
+            <group id="fourth" translate="label" type="text" sortOrder="26" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>User Guide</label>
+                <field id="fedexLTLUserGuide" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Eniture\FedExLTLFreightQuotes\Block\System\Config\UserGuide</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

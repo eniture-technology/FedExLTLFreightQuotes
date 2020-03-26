@@ -1,0 +1,97 @@
+<section class="admin__page-section custom-tab-content">
+    <h1>Additional Order Details</h1>
+    <?php
+    $order = $block->getOrder();
+    $orderDetailData = $order->getData('order_detail_data');
+    $orderDetailData = isset($orderDetailData) ? json_decode($orderDetailData, true) : null;
+    if ($orderDetailData !== null) {
+        $shipmentNumber = 1;
+        foreach ($orderDetailData['shipmentData'] as $key => $order) {
+            if (isset($order) && !empty($order)) {
+                $residential = $liftGate = false;
+                $resi = $order['quotes']['residentialDelivery'] ?? false;
+                $title = (isset($order['quotes']['title'])) ? $order['quotes']['title'] . ' :' : '';
+                $rate = (isset($order['quotes']['rate'])) ? number_format($order['quotes']['rate'], 2, '.', '') : '0.00';
+                if ($shipmentNumber > 1) { ?>
+                    <hr class="order-info-hr">
+                <?php } ?>
+                <div class="order-detail-block">
+                    <h4 class='order-detail-hdng'>
+                        Shipment <?= /* @noEscape */
+                        __($shipmentNumber) ?> > Origin & Services
+                    </h4>
+                    <div class="order-shipment-block">
+                <span class="list-item">
+                    <?= /* @noEscape */
+                    __(ucfirst($order['origin']['location']) . ': ' . $order['origin']['senderCity'] . ', ' . $order['origin']['senderState'] . ' ' . $order['origin']['senderZip'] . ', ' . $order['origin']['senderCountryCode']) ?>
+                    <span class="list-item">
+                        <?= /* @noEscape */
+                        __($title . ' $' . $rate) ?>
+                    </span>
+                </span>
+                    </div>
+                    <?php
+                    if (isset($order['quotes']['code'])) {
+                        if (stripos($order['quotes']['code'], "HOAT") === false) {
+                            $residential = ($orderDetailData['residentialDelivery'] || $resi) ? 'Residential Delivery' : false;
+                            $liftGate = $orderDetailData['liftGateDelivery'] ?? false;
+                            if ($liftGate) {
+                                $liftGate = $liftGate['always'] || $liftGate['asOption'] || $liftGate['residentialLiftgate'] == 'yes' ? 'Liftgate Delivery' : false;
+                            }
+                        }
+                    }
+                    $lineItems = $order['item'];
+                    $findHazardous = array_column($lineItems, 'isHazmatLineItem');
+                    $hazardous = (in_array("Y", $findHazardous)) ? 'Hazardous Material' : '';
+
+                    if ($residential || $hazardous || $liftGate) { ?>
+                        <h4 class='order-detail-hdng'>Additional Information</h4>
+                        <div class="order-additionalInfo-block">
+                                <?php
+                                if ($residential) { ?>
+                                <span class="list-item">
+                                        <?= /* @noEscape */
+                                        __($residential) ?>
+                                    </span>
+                                <?php }
+                                if ($hazardous) { ?>
+                                <span class="list-item">
+                                        <?= /* @noEscape */
+                                        __($hazardous) ?>
+                                    </span>
+                                <?php }
+                                if ($liftGate) { ?>
+                                <span class="list-item">
+                                        <?= /* @noEscape */
+                                        __($liftGate) ?>
+                                    </span>
+                                <?php } ?>
+                        </div>
+                    <?php } ?>
+                    <h4 class='order-detail-hdng'>
+                        Shipment <?= /* @noEscape */
+                        __($shipmentNumber) ?> > items
+                    </h4>
+
+                    <?php foreach ($order['item'] as $num => $lineItem) { ?>
+                        <div class="order-item-block">
+                            <span class="list-item">
+                                <?= /* @noEscape */
+                                __($lineItem['piecesOfLineItem'] . " x " . $lineItem['lineItemName']) ?>
+                            </span>
+                        </div>
+                    <?php } ?>
+                    <!-- Clear the float effect -->
+                    <div class="en-clear"></div>
+                </div>
+                <?php
+            }
+            $shipmentNumber++;
+        }
+    } else { ?>
+        <h4>
+            <?= /* @noEscape */
+            __("No additional details are found!"); ?>
+        </h4>
+    <?php } ?>
+</section>
