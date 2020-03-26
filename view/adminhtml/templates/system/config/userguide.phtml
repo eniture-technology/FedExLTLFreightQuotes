@@ -1,7 +1,7 @@
 <script>
     require(['jquery', 'jquery/ui', 'domReady!'], function ($) {
         const carrierDiv = '#fedexLtlUserGuide_fourth-head';
-        fedexLtCurrentPlanNote($, '<?php echo $block->escapeHtml($block->fedexLtlPlanNotice()); ?>', carrierDiv);
+        fedexLtCurrentPlanNote($, '<?php echo $block->escapeHtml($block->fedexLtlPlanNotice() , ['a', 'div']); ?>', carrierDiv);
     });
 </script>
 <div class="user_guide">

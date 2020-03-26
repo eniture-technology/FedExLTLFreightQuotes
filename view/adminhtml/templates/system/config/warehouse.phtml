@@ -12,7 +12,7 @@ if ($plan == 3) {
 <script>
     require(['jquery', 'domReady!'], function ($) {
         let carrierDiv = '#fedexLtlWarehouse_second-head';
-        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml($block->planNotice()); ?>', carrierDiv);
+        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml($block->planNotice() , ['a', 'div']); ?>', carrierDiv);
 
         let canAddWh = <?= $block->escapeHtml($block->addWhRestriction()); ?>;
         fedexLtAddWarehouseRestriction(canAddWh);

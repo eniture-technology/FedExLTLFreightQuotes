@@ -2,7 +2,7 @@
     //type="text/x-magento-init"
     require(['jquery', 'jquery/ui', 'domReady!'], function ($) {
         const carrierDiv = '#fedexLtlQuoteSetting_third-head';
-        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml(__($block->fedexLtlPlanNotice())); ?>', carrierDiv);
+        fedexLtCurrentPlanNote($, '<?= $block->escapeHtml(__($block->fedexLtlPlanNotice()), ['a', 'div']); ?>', carrierDiv);
         fedexLtPlanQuoteRestriction('<?= $block->escapeHtml(__($block->planRstrctnQuoteSettng(), ['a', 'div'])); ?>');
     });
 </script>
