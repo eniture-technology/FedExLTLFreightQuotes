@@ -128,10 +128,10 @@ class ProductPlanRestriction extends Field
                     'label' => $carrierLabel,
                     'plan' => $carrierPlan
                 ];
-                if (strpos($carrierCode, 'LTL')) {
+                if (strpos($carrierCode, 'LTL') !== false) {
                     $numLTL++;
                 }
-                if (strpos($carrierCode, 'Smpkg')) {
+                if (strpos($carrierCode, 'Smpkg') !== false) {
                     $numSmPkg++;
                 }
                 if ($carrierPlan > 1) {

@@ -1153,11 +1153,11 @@ class Data extends AbstractHelper implements DataHelperInterface
     public function quoteSettingFieldsToRestrict()
     {
         $restriction = [];
-        $currentPlanArr = $this->planInfo();
+        $currentPlan = $this->planInfo()['planNumber'];
         $restricted = [
             'HoldAtTerminal'
         ];
-        switch ($currentPlanArr['planNumber']) {
+        switch ($currentPlan) {
             case 3:
                 break;
             default:

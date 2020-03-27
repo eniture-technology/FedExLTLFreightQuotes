@@ -272,20 +272,17 @@ label[for='Eniture-Menu-Option-section-three-AutoDetectResidentialAddress'] {
     opacity: 0.4;
 }
 
-.is_heading_left, .ld_heading_left {
+.is-heading-left, .ld-heading-left{
     float: left;
-    margin: 0 !important;
-    font-weight: bold !important;
+    width: 40%;
 }
 
-.is_heading_right, .ld_heading_right {
-    float: right;
+.is-heading-right, .ld-heading-right{
     color: red;
-    margin: 0 33.5% 0 0 !important;
-    font-weight: bold !important;
+    font-weight: 600;
 }
 
-.is_heading_right:hover, .ld_heading_right:hover {
+.is-heading-right:hover, .ld-heading-right:hover{
     color: red;
     text-decoration: none;
 }

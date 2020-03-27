@@ -106,7 +106,6 @@ require(
 
         //Get data of Zip Code
         $(formId + ' #fedexLt-wh-zip').on('change', function () {
-            console.log(fedexLtAjaxUrl);
             var ajaxUrl = fedexLtAjaxUrl + 'FedExLTLPkgOriginAddress/';
             $(formId + ' #wh-origin-city').val('');
             $(formId + ' #wh-origin-state').val('');
@@ -177,6 +176,7 @@ function fedexLtZipMilesValid()
 
 function fedexLtWarehouseSaveResSettings(data)
 {
+    fedexLtAddWarehouseRestriction(data.canAddWh);
     if (data.insert_qry == 1) {
         jQuery('#append-warehouse tr:last').after(
             '<tr id="row_' + data.id + '" data-id="' + data.id + '">' + fedexLtGetRowData(data, 'wh') + '</tr>'
