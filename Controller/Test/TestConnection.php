@@ -74,7 +74,7 @@ class TestConnection extends Action
             'carrier_mode' => 'test',
             'carrierName' => 'fedex',
             'sever_name' => $this->getStoreUrl(),
-            'accountType' => (!empty($thirdPartyAccount)) ? 'thirdParty' : 'shipper',
+            'accountType' => (!empty($credentials['thirdPartyAccount'])) ? 'thirdParty' : 'shipper',
         ];
 
         $response = $this->dataHelper->sendCurlRequest(EnConstants::TEST_CONN_URL, $postData);

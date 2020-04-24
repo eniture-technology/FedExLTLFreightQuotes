@@ -71,7 +71,7 @@ class FedExLTLGenerateRequestData
             'serverName' => $this->request->getServer('SERVER_NAME'),
             'carrierMode' => 'pro',
             'quotestType' => 'ltl',
-            'version' => '1.1.0',
+            'version' => '1.1.2',
             'api' => $this->getApiInfoArr(),
         ];
     }
