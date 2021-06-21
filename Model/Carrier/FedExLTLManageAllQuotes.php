@@ -96,6 +96,7 @@ class FedExLTLManageAllQuotes
                 return $this->fedExGetAllQuotes();
             } else {
                 $multiShipmentValue = $this->checkMultiPackaging();
+
                 if ($multiShipmentValue == 'all') {
                     return $this->fedExGetAllQuotes();
                 } elseif ($multiShipmentValue == 'semi') {
@@ -161,7 +162,7 @@ class FedExLTLManageAllQuotes
                     }
                 }
                 $ltlQuotesFinalArr[$mainKey][] = [
-                    'code' => 'Freight',
+                    'code' => $mainKey.'_Freight',
                     'title' => 'Freight ' . $this->resiLabel,
                     'rate' => $ltlRate
                 ];
@@ -170,7 +171,7 @@ class FedExLTLManageAllQuotes
             if ($minimumSmallRate > 0) {
                 foreach ($ltlModulesArr as $key => $value) {
                     $ltlQuotesFinalArr[$key][] = [
-                        'code' => 'Freight',
+                        'code' => $key.'_Freight',
                         'title' => 'Freight ' . $this->resiLabel,
                         'rate' => $minimumSmallRate
                     ];
@@ -342,22 +343,23 @@ class FedExLTLManageAllQuotes
      */
     public function updateLtlQuotes($ltlQuotesArr, $minSmallRate)
     {
-        $fedexLt = key($ltlQuotesArr);
-        $ltlQuotesArr = reset($ltlQuotesArr);
         $updatedLtlQuotesArr = [];
         if (!empty($ltlQuotesArr)) {
-            foreach ($ltlQuotesArr as $key => $value) {
-                $minSmallRate += $value['rate'];
+            foreach ($ltlQuotesArr as $moduleKey => $moduleRates) {
+                $finalRate = $minSmallRate;
+                foreach ($moduleRates as $originKey => $originRates) {
+                    $finalRate += $originRates['rate'];
+                }
+                $updatedLtlQuotesArr[$moduleKey][] = [
+                    'code' => $moduleKey . '_Freight',
+                    'title' => 'Freight ' . $this->resiLabel,
+                    'rate' => $finalRate
+                ];
             }
-            $updatedLtlQuotesArr[$fedexLt][] = [
-                'code' => 'Freight',
-                'title' => 'Freight ' . $this->resiLabel,
-                'rate' => $minSmallRate
-            ];
         } else {
             foreach ($this->ltlPackagesQuotes as $key => $value) {
                 $updatedLtlQuotesArr[$key][] = [
-                    'code' => 'Freight',
+                    'code' => $key.'_Freight',
                     'title' => 'Freight',
                     'rate' => $minSmallRate
                 ];
@@ -420,16 +422,17 @@ class FedExLTLManageAllQuotes
      */
     public function setOdwData($smallQuotesArr, $ltlQuotesArr, $minimumCommonArr)
     {
-        $smallQuotesArr = !empty($smallQuotesArr) ? reset($smallQuotesArr) : [];
-        $ltlQuotesArr = !empty($ltlQuotesArr) ? reset($ltlQuotesArr) : [];
+        $smallQuotesArr = $smallQuotesArr ?? [];
+        $ltlQuotesArr = $ltlQuotesArr ?? [];
         $allQuotesArr = $smallQuotesArr + $ltlQuotesArr;
-
         if (!empty($allQuotesArr)) {
-            foreach ($allQuotesArr as $origin => $data) {
-                $this->odwData[$origin] = $minimumCommonArr[$origin] ?? $data;
+            foreach ($allQuotesArr as $module => $moduleQuote) {
+                foreach ($moduleQuote as $origin => $data) {
+                    $this->odwData[$module][$origin] = $minimumCommonArr[$origin] ?? $data;
+                }
             }
-            $this->setOrderDetailData();
         }
+        $this->setOrderDetailData();
     }
 
     /**
@@ -439,9 +442,12 @@ class FedExLTLManageAllQuotes
     {
         $this->addQuotesIndex();
         $orderDetail['residentialDelivery'] = 0;
-        $setPkgForODWReg = null !== $this->registry->registry('setPackageDataForOrderDetail') ?
-            $this->registry->registry('setPackageDataForOrderDetail') : [];
-        $orderDetail['shipmentData'] = array_replace_recursive($setPkgForODWReg, $this->odwData);
+        $setPkgForODWReg = $this->registry->registry('setPackageDataForOrderDetail') ?? [];
+
+        foreach ($this->odwData as $module => $odwDatum) {
+            $orderDetail[$module]['residentialDelivery'] = 0;
+            $orderDetail[$module]['shipmentData'] = array_replace_recursive($setPkgForODWReg, $odwDatum);
+        }
         // set order detail widget data
         $this->session->start();
         $this->session->setSemiOrderDetailSession($orderDetail);
@@ -450,13 +456,15 @@ class FedExLTLManageAllQuotes
     public function addQuotesIndex()
     {
         $dataArray = [];
-        foreach ($this->odwData as $key => $array) {
-            $resi = $array['resi']['residential'] ?? false;
-            $this->resiLabel = $array['resi']['label'];
-            unset($array['resi']);
-            $array['residentialDelivery'] = $resi;
-            $dataArray[$key] = ['quotes' => $array];
+        foreach ($this->odwData as $module => $moduleData) {
+            foreach ($moduleData as $key => $array) {
+                $resi = $array['resi']['residential'] ?? false;
+                $this->resiLabel = $array['resi']['label'];
+                unset($array['resi']);
+                $array['residentialDelivery'] = $resi;
+                $dataArray[$key] = ['quotes' => $array];
+            }
+            $this->odwData[$module] = $dataArray;
         }
-        $this->odwData = $dataArray;
     }
 }

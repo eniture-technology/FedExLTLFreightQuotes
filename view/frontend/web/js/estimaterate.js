@@ -53,6 +53,7 @@ define([
                 payload,
                 false
             ).done(function (result) {
+                //rateRegistry.set(address.getKey(), null);
                 rateRegistry.set(quote.shippingAddress().getCacheKey(), result);
                 shippingService.setShippingRates(result);
                 $("#co-shipping-method-form [type=radio]").on('click', function (e) {

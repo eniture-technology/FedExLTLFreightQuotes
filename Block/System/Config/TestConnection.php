@@ -87,6 +87,6 @@ class TestConnection extends Field
 
     public function conMessage()
     {
-        return '<div class="message message-notice notice fedexLt-conn-setting-note"><div data-ui-id="messages-message-notice">Note! You must have a FedEx account to use this application. If you do not have one, contact FedEx at 800-463-3339 or <a target="_blank" href="https://www.fedex.com/en-us/create-account.html">register online</a>.</div>';
+        return '<div class="message message-notice notice fedexLt-conn-setting-note"><div data-ui-id="messages-message-notice">Note! You must have a Fedex account to use this application. If you do not have one, contact FedEx at 800-463-3339 or <a target="_blank" href="https://www.fedex.com/en-us/create-account.html">register online</a>.</div>';
     }
 }

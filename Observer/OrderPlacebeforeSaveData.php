@@ -44,6 +44,7 @@ class OrderPlacebeforeSaveData implements ObserverInterface
             }
 
             $method = $order->getShippingMethod();
+
             if (strpos($method, 'ENFedExLTL') !== false) {
                 $semiOrderDetailData = $this->coreSession->getSemiOrderDetailSession();
                 $orderDetailData = $this->coreSession->getFedExLTLOrderDetailSession();
@@ -53,7 +54,7 @@ class OrderPlacebeforeSaveData implements ObserverInterface
                     }
                     $orderDetailData = $this->getData($order, $method, $orderDetailData, $multiShip);
                 } elseif ($semiOrderDetailData) {
-                    $orderDetailData = $semiOrderDetailData;
+                    $orderDetailData = $semiOrderDetailData['fedexLTL'];
                     $this->coreSession->unsSemiOrderDetailSession();
                 }
                 $order->setData('order_detail_data', json_encode($orderDetailData));

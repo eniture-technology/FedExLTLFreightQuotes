@@ -66,12 +66,15 @@ class FedExLTLGenerateRequestData
      */
     public function generateEnitureArray()
     {
+
         return [
             'licenseKey' => $this->getConfigData('fedexLtlLicenseKey'),
             'serverName' => $this->request->getServer('SERVER_NAME'),
             'carrierMode' => 'pro',
             'quotestType' => 'ltl',
-            'version' => '1.1.2',
+            'version' => '1.1.3',
+            //This check is made on Paul/customer request
+            'returnQuotesOnExceedWeight' => $this->getConfigData('weightExeeds') > 0 ? 10 : 0,
             'api' => $this->getApiInfoArr(),
         ];
     }
@@ -217,7 +220,7 @@ class FedExLTLGenerateRequestData
      */
     public function getConfigData($fieldId)
     {
-        $secThreeIds = ['residentialDlvry', 'fedexLtlDiscounts', 'discountPercent', 'liftGateDlvry', 'OfferLiftgateAsAnOption', 'RADforLiftgate', 'HoldAtTerminal'];
+        $secThreeIds = ['residentialDlvry', 'fedexLtlDiscounts', 'discountPercent', 'liftGateDlvry', 'OfferLiftgateAsAnOption', 'RADforLiftgate', 'HoldAtTerminal', 'weightExeeds'];
         if (in_array($fieldId, $secThreeIds)) {
             $sectionId = 'fedexLtlQuoteSetting';
             $groupId = 'third';

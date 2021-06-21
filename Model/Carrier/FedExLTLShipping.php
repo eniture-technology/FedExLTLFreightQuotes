@@ -26,8 +26,8 @@ use Psr\Log\LoggerInterface;
 /**
  * @category   Shipping
  * @package    Eniture_FedExLTLFreightQuotes
- * @author     john@eniture-dev.com
- * @website    http://ess.eniture.com
+ * @author     Eniture Technology
+ * @website    http://eniture.com
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class FedExLTLShipping extends AbstractCarrier implements
@@ -62,8 +62,6 @@ class FedExLTLShipping extends AbstractCarrier implements
 
     private $productLoader;
 
-    private $mageVersion;
-
     private $objectManager;
     /**
      * @var RequestInterface
@@ -97,6 +95,11 @@ class FedExLTLShipping extends AbstractCarrier implements
      * @var FedExLTLSetCarriersGlobaly
      */
     private $setGlobalCarrier;
+    private $qty;
+    /**
+     * @var bool
+     */
+    private $freeShipping = false;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -111,7 +114,6 @@ class FedExLTLShipping extends AbstractCarrier implements
      * @param UrlInterface $urlInterface
      * @param SessionManagerInterface $session
      * @param ProductFactory $productLoader
-     * @param ProductMetadataInterface $productMetadata
      * @param ObjectManagerInterface $objectManager
      * @param FedExLTLGenerateRequestData $generateReqData
      * @param FedExLTLManageAllQuotes $manAllQuotes
@@ -134,7 +136,6 @@ class FedExLTLShipping extends AbstractCarrier implements
         UrlInterface $urlInterface,
         SessionManagerInterface $session,
         ProductFactory $productLoader,
-        ProductMetadataInterface $productMetadata,
         ObjectManagerInterface $objectManager,
         FedExLTLGenerateRequestData $generateReqData,
         FedExLTLManageAllQuotes $manAllQuotes,
@@ -154,7 +155,6 @@ class FedExLTLShipping extends AbstractCarrier implements
         $this->urlInterface = $urlInterface;
         $this->session = $session;
         $this->productLoader = $productLoader;
-        $this->mageVersion = $productMetadata->getVersion();
         $this->objectManager = $objectManager;
         $this->generateReqData = $generateReqData;
         $this->manageAllQuotes = $manAllQuotes;
@@ -188,6 +188,8 @@ class FedExLTLShipping extends AbstractCarrier implements
      */
     public function collectRates(RateRequest $request)
     {
+        $this->freeShipping = $request->getFreeShipping();
+
         if (!$this->getConfigFlag('active')) {
             return false;
         }
@@ -262,13 +264,20 @@ class FedExLTLShipping extends AbstractCarrier implements
      */
     public function getShipmentPackageRequest($items, $receiverZipCode, $request)
     {
+
         $package = [];
+
         foreach ($items as $item) {
+
             $_product = $this->productLoader->create()->load($item->getProductId());
             $productType = $item->getRealProductType() ?? $_product->getTypeId();
 
-            if ($productType == 'simple' || $productType == 'configurable') {
-                $productQty = $item->getQty();
+            if ($productType == 'configurable') {
+                $this->qty = $item->getQty();
+            }
+            if ($productType == 'simple') {
+                $productQty = ($this->qty > 0) ? $this->qty : $item->getQty();
+                $this->qty = 0;
                 $originAddress = $this->shipmentPkg->fedexLTLOriginAddress($request, $_product, $receiverZipCode);
                 $package['origin'][$_product->getId()] = $originAddress;
 
@@ -370,6 +379,7 @@ class FedExLTLShipping extends AbstractCarrier implements
             default:
                 break;
         }
+
         return $lineItemClass;
     }
 
@@ -380,8 +390,12 @@ class FedExLTLShipping extends AbstractCarrier implements
      */
     private function getDims($_product, $dimOf)
     {
-        $dim = ($this->mageVersion < '2.2.5') ? 'en_' . $dimOf : 'ts_dimensions_' . $dimOf;
-        return $_product->getData($dim);
+        $dimValue = $_product->getData('ts_dimensions_'.$dimOf);
+        if($dimValue != null){
+            return $dimValue;
+        }
+
+        return $_product->getData('en_'.$dimOf);
     }
 
     /**
@@ -390,10 +404,14 @@ class FedExLTLShipping extends AbstractCarrier implements
      */
     private function setHzAndIns($_product)
     {
-        $hazmat = ($_product->getData('en_hazmat')) ? 'Y' : 'N';
-        $insurance = $_product->getData('en_insurance');
-        if ($insurance && $this->registry->registry('en_insurance') === null) {
-            $this->registry->register('en_insurance', $insurance);
+        $hazmat = 'N';
+        $insurance = 0;
+        if ($this->dataHelper->planInfo()['planNumber'] > 1){
+            $hazmat = ($_product->getData('en_hazmat')) ? 'Y' : 'N';
+            $insurance = $_product->getData('en_insurance');
+            if ($insurance && $this->registry->registry('en_insurance') === null) {
+                $this->registry->register('en_insurance', $insurance);
+            }
         }
         return ['hazmat' => $hazmat,
             'insurance' => $insurance
@@ -461,15 +479,18 @@ class FedExLTLShipping extends AbstractCarrier implements
                         $carrierCode = $carriersArray[$carrierKey] ?? $this->_code;
                         $carrierTitle = $carriersTitle[$carrierKey] ?? $this->getConfigData('title');
                         $method = $this->rateMethodFactory->create();
+                        $price = $this->freeShipping ? 0 : $carrier['rate'];
                         $method->setCarrier($carrierCode);
                         $method->setCarrierTitle($carrierTitle);
                         $method->setMethod($carrier['code']);
                         $method->setMethodTitle($carrier['title']);
-                        $method->setPrice($carrier['rate']);
+                        $method->setPrice($price);
+                        $method->setCost($price);
                         $result->append($method);
                     }
                 }
             }
+            $this->registry->unregister('enitureCarriers');
             return $result;
         }
     }

@@ -469,7 +469,6 @@ class Data extends AbstractHelper implements DataHelperInterface
             }
         }
         $orderDetail['shipmentData'] = array_replace_recursive($setPkgForOrderDetailReg, $servicesArr);
-
         // set order detail widget data
         $this->coreSession->start();
         $this->coreSession->setFedExLTLOrderDetailSession($orderDetail);
@@ -609,10 +608,10 @@ class Data extends AbstractHelper implements DataHelperInterface
      */
     public function displayPlanMessages($planPackage)
     {
-        $planMsg = __('Eniture - FedEx LTL Freight Quotes plan subscription is inactive. Please activate plan subscription from <a target="_blank" href="https://eniture.com/magento2-fedex-ltl-freight/">here</a>.');
+        $planMsg = __('Eniture - Fedex LTL Freight Quotes plan subscription is inactive. Please activate plan subscription from <a target="_blank" href="https://eniture.com/magento2-fedex-ltl-freight/">here</a>.');
         if (isset($planPackage) && !empty($planPackage)) {
             if ($planPackage['planNumber'] !== null && $planPackage['planNumber'] != '-1') {
-                $planMsg = __('Eniture - FedEx LTL Freight Quotes is currently on the ' . $planPackage['planName'] . '. Your plan will expire within ' . $planPackage['expireDays'] . ' days and plan renews on ' . $planPackage['expiryDate'] . '.');
+                $planMsg = __('Eniture - Fedex LTL Freight Quotes is currently on the ' . $planPackage['planName'] . '. Your plan will expire within ' . $planPackage['expireDays'] . ' days and plan renews on ' . $planPackage['expiryDate'] . '.');
             }
         }
         return $planMsg;
@@ -792,6 +791,9 @@ class Data extends AbstractHelper implements DataHelperInterface
         $this->isMultiShipment = (count($quotes) > 1) ? true : false;
         foreach ($quotes as $origin => $quote) {
             if (isset($quote->severity)) {
+                if (!$this->isMultiShipment && isset($quote->InstorPickupLocalDelivery) && !empty($quote->InstorPickupLocalDelivery)) {
+                    return $this->instoreLocalDeliveryQuotes([], $quote->InstorPickupLocalDelivery);
+                }
                 return [];
             }
             if ($count == 0) { //To be checked only once

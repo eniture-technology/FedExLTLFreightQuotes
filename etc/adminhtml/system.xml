@@ -3,8 +3,8 @@
 /**
  * @category   Shipping
  * @package    Eniture_FedExLTLFreightQuotes
- * @author     john@eniture-dev.com
- * @website    http://ess.eniture.com
+ * @author     Eniture Technology
+ * @website    http://eniture.com
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
@@ -228,7 +228,7 @@
                 <field id="weightExeeds" translate="label" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Return LTL quotes when an order's parcel shipment weight exceeds 150 lbs</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[When selected, the LTL Freight Quote plugin will return quotes when an order's total weight exceeds 150 lbs (the maximum permitted by FedEx and UPS), even if none of the products have settings to indicate that it will ship LTL. To increase the accuracy of the returned quote(s), all products should have accurate weights and dimensions.]]></comment>
+                    <comment><![CDATA[When selected, the LTL Freight Quote plugin will return quotes when an order's total weight exceeds 150 lbs (the maximum permitted by Fedex and UPS), even if none of the products have settings to indicate that it will ship LTL. To increase the accuracy of the returned quote(s), all products should have accurate weights and dimensions.]]></comment>
                 </field>
             </group>
         </section>
