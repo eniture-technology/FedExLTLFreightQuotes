@@ -12,12 +12,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <tab id="FedExLTLFreightQuotes" translate="label" sortOrder="10">
-            <label>Eniture - FedEx LTL Freight Quotes</label>
+            <label>Eniture - Fedex LTL Freight Quotes</label>
         </tab>
 
         <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
             <group id="ENFedExLTL" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Eniture - FedEx LTL Freight Quotes</label>
+                <label>Eniture - Fedex LTL Freight Quotes</label>
 
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled For Checkout</label>

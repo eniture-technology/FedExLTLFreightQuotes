@@ -1,4 +1,4 @@
-# FedEx LTL Freight Quotes Extension for Magento2 by Eniture
+# Fedex LTL Freight Quotes Extension for Magento2 by Eniture
 
 This module requires license purchase from [Eniture](http://eniture.com/)
 

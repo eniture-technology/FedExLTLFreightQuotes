@@ -87,7 +87,7 @@ class PlanUpgrade
         $this->saveConfigurations('eniture/ENFedExLTL/expiredate', "$expiryDate");
         $this->saveConfigurations('eniture/ENFedExLTL/storetype', "$planType");
         $this->saveConfigurations('eniture/ENFedExLTL/pakgprice', "$pkgPrice");
-        $this->saveConfigurations('eniture/ENFedExLTL/label', "Eniture - FedEx LTL Freight Quotes");
+        $this->saveConfigurations('eniture/ENFedExLTL/label', "Eniture - Fedex LTL Freight Quotes");
 
         $this->logger->info($output);
     }

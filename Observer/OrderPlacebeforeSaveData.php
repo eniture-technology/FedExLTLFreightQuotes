@@ -103,7 +103,7 @@ class OrderPlacebeforeSaveData implements ObserverInterface
                 $orderDetailData['shipmentData'][$key]['quotes'] = [
 
                     'code' => $shippingMethod[1],
-                    'title' => str_replace("FedEx LTL Freight Quotes - ", "", $order->getShippingDescription()),
+                    'title' => str_replace("Fedex LTL Freight Quotes - ", "", $order->getShippingDescription()),
                     'rate' => number_format((float)$order->getShippingAmount(), 2, '.', '')
                 ];
             }

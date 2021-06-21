@@ -1,7 +1,7 @@
 <?php
 /**
- * FedEx LTL Freight Quotes
- * @package     FedEx LTL Freight Quotes
+ * Fedex LTL Freight Quotes
+ * @package     Fedex LTL Freight Quotes
  * @author      Eniture-Technology
  */
 

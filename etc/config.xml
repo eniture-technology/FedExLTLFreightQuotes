@@ -17,7 +17,7 @@
                 <model>Eniture\FedExLTLFreightQuotes\Model\Carrier\FedExLTLShipping</model>
                 <allowed_methods>FEDEX_FREIGHT_ECONOMY,FEDEX_FREIGHT_PRIORITY</allowed_methods>
                 <name>Fixed</name>
-                <title>FedEx LTL Freight Quotes</title>
+                <title>Fedex LTL Freight Quotes</title>
                 <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
                 </specificerrmsg>
             </ENFedExLTL>

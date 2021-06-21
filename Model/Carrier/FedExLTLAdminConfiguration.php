@@ -54,7 +54,7 @@ class FedExLTLAdminConfiguration
     public function setCarriersAndHelpersCodesGlobally()
     {
         $this->setCodesGlobally('enitureCarrierCodes', 'ENFedExLTL');
-        $this->setCodesGlobally('enitureCarrierTitle', 'FedEx LTL Freight Quotes');
+        $this->setCodesGlobally('enitureCarrierTitle', 'Fedex LTL Freight Quotes');
         $this->setCodesGlobally('enitureHelpersCodes', '\Eniture\FedExLTLFreightQuotes');
         $this->setCodesGlobally('enitureActiveModules', $this->checkModuleIsEnabled());
         $this->setCodesGlobally('enitureModuleTypes', 'ltl');

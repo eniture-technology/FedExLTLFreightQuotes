@@ -70,7 +70,7 @@ require(
         $('body').on('click', '.fedexLt-del-ds', function (event) {
             event.preventDefault();
             confirmation({
-                title: 'FedEx LTL Freight Quotes',
+                title: 'Fedex LTL Freight Quotes',
                 content: 'Warning! If you delete this location, Drop ship location settings will be disabled against products.',
                 actions: {
                     always: function () {
