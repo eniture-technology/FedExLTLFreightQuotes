@@ -66,13 +66,12 @@ class FedExLTLGenerateRequestData
      */
     public function generateEnitureArray()
     {
-
         return [
             'licenseKey' => $this->getConfigData('fedexLtlLicenseKey'),
             'serverName' => $this->request->getServer('SERVER_NAME'),
             'carrierMode' => 'pro',
             'quotestType' => 'ltl',
-            'version' => '1.1.4',
+            'version' => '1.1.5',
             //This check is made on Paul/customer request
             'returnQuotesOnExceedWeight' => $this->getConfigData('weightExeeds') > 0 ? 10 : 0,
             'api' => $this->getApiInfoArr(),

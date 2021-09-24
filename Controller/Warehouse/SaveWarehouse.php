@@ -38,7 +38,7 @@ class SaveWarehouse extends Action
      */
     public function execute()
     {
-        $insertQry = 0;
+        $insertQry = ['insertId' => 0, 'lastId' => 0];
         $updateQry = 0;
         $msg = 'Warehouse already exist!';
         $updateInSpLd = 'no';

@@ -200,7 +200,7 @@ class InstallData implements InstallDataInterface
         $installer,
         $eavSetup
     ) {
-        $count = 71;
+        $count = 65;
         foreach ($this->attrNames as $attr) {
             if($attr == 'length' || $attr == 'width' || $attr == 'height'){
                 $isTsAttExists = $this->eavConfig
@@ -290,7 +290,7 @@ class InstallData implements InstallDataInterface
                 'Enable Drop Ship',
                 'select',
                 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
-                76
+                71
             );
         }
 
@@ -304,7 +304,7 @@ class InstallData implements InstallDataInterface
                 'Drop Ship Location',
                 'select',
                 'Eniture\FedExLTLFreightQuotes\Model\Source\DropshipOptions',
-                77
+                72
             );
         } else {
             $dataArr = [
@@ -324,10 +324,9 @@ class InstallData implements InstallDataInterface
                 'Hazardous Material',
                 'select',
                 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
-                78
+                73
             );
         }
-
 
         $installer->endSetup();
     }

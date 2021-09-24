@@ -714,9 +714,8 @@ class Data extends AbstractHelper implements DataHelperInterface
         if ($rate <= 0) {
             return [];
         }
-        $methodCode = $this->isMultiShipment ? 'Freight' : $servicesArray->serviceType;
-        $title = $this->getMethodName($methodCode);
-
+        $title = $this->isMultiShipment ? 'Freight' : $this->getMethodName($servicesArray->serviceType);
+        $titleWdServiceName = $this->getMethodName($servicesArray->serviceType);
         if ($hoAt->distance->Value > 0) {
             $distance = $hoAt->distance->Value . ' miles away |';
         }
@@ -739,7 +738,8 @@ class Data extends AbstractHelper implements DataHelperInterface
         return [
             'code' => 'HOAT' . $count . '+T',
             'rate' => $rate,
-            'title' => $title . $this->hoatLabel
+            'titleMultiShip' => $title . $this->hoatLabel,
+            'title' => $titleWdServiceName . $this->hoatLabel
         ];
     }
 
@@ -861,11 +861,13 @@ class Data extends AbstractHelper implements DataHelperInterface
             }
             $count++;
         }
+
         $this->setOrderDetailWidgetData($odwArr, $hazShipmentArr);
         $allQuotes = $this->getFinalQuotesArray($allQuotes);
         if (!$this->isMultiShipment && isset($inStoreLdData) && !empty($inStoreLdData)) {
             $allQuotes = $this->instoreLocalDeliveryQuotes($allQuotes, $inStoreLdData);
         }
+
         return $allQuotes;
     }
 
@@ -965,6 +967,8 @@ class Data extends AbstractHelper implements DataHelperInterface
             case 'FEDEX_FREIGHT_PRIORITY':
                 $methodName = ' Priority';
                 break;
+            case 'Freight':
+                return $serviceCode;
             default:
                 $methodName = preg_replace('/([A-Z])/', ' $1', $serviceCode);
                 break;
@@ -1040,7 +1044,11 @@ class Data extends AbstractHelper implements DataHelperInterface
                 foreach ($value as $key2 => $data) {
                     $rate += $data['rate'];
                     $code = $data['code'];
-                    $title = $key == 'hoat' ? $data['title'] : $this->getTitle('Freight', $isLiftGate, true);
+                    if($key == 'hoat'){
+                        $title = $data['titleMultiShip'];
+                    }else{
+                        $title = $this->getTitle('Freight', $isLiftGate, true);
+                    }
                 }
                 $quotesArr[] = [
                     'code' => $code,

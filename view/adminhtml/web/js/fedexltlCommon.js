@@ -33,7 +33,7 @@ require([
 
     $('#fedexLtlQuoteSetting_third_liftGateDlvry').on('change', function () {
         fedexLtChangeLiftgateOption('#fedexLtlQuoteSetting_third_OfferLiftgateAsAnOption', this.value);
-        $('#fedexLtlQuoteSetting_third_RADforLiftgate').val('no');
+        $('#fedexLtlQuoteSetting_third_RADforLiftgate').val('0');
     });
 
     $('#fedexLtlQuoteSetting_third_OfferLiftgateAsAnOption').on('change', function () {
