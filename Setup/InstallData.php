@@ -200,12 +200,12 @@ class InstallData implements InstallDataInterface
         $installer,
         $eavSetup
     ) {
-        $count = 65;
+        $count = 71;
         foreach ($this->attrNames as $attr) {
-            if($attr == 'length' || $attr == 'width' || $attr == 'height'){
+            if ($attr == 'length' || $attr == 'width' || $attr == 'height') {
                 $isTsAttExists = $this->eavConfig
                     ->getAttribute('catalog_product', 'ts_dimensions_' . $attr . '')->getAttributeId();
-                if($isTsAttExists != null){
+                if ($isTsAttExists != null) {
                     $this->haveTsAttributes = true;
                     continue;
                 }
@@ -231,13 +231,13 @@ class InstallData implements InstallDataInterface
         $isLTLCheckExist = $this->connection->fetchOne("select count(*) as count From ".$this->tableNames['eav_attribute']." where attribute_code = 'en_ltl_check'");
 
         if ($isLTLCheckExist == 0) {
-            $this->getAttributeArray($eavSetup, 'en_ltl_check', 'int', 'Ship Via LTL Freight', 'select', 'Magento\Eav\Model\Entity\Attribute\Source\Boolean', 74);
+            $this->getAttributeArray($eavSetup, 'en_ltl_check', 'int', 'Ship Via LTL Freight', 'select', 'Magento\Eav\Model\Entity\Attribute\Source\Boolean', 78);
         }
 
         $isspeedFraightClassExist = $this->connection->fetchOne("select count(*) as count From ".$this->tableNames['eav_attribute']." where attribute_code = 'speed_freight_class'");
 
         if ($isspeedFraightClassExist == 0) {
-            $this->getAttributeArray($eavSetup, 'en_freight_class', 'int', 'Freight Class', 'select', 'Eniture\FedExLTLFreightQuotes\Model\Source\FedExFreightClass', 75);
+            $this->getAttributeArray($eavSetup, 'en_freight_class', 'int', 'Freight Class', 'select', 'Eniture\FedExLTLFreightQuotes\Model\Source\FedExFreightClass', 79);
         } else {
             $dataArr = [
                 'attribute_code'    => 'speed_freight_class',
@@ -290,7 +290,7 @@ class InstallData implements InstallDataInterface
                 'Enable Drop Ship',
                 'select',
                 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
-                71
+                74
             );
         }
 
@@ -304,7 +304,7 @@ class InstallData implements InstallDataInterface
                 'Drop Ship Location',
                 'select',
                 'Eniture\FedExLTLFreightQuotes\Model\Source\DropshipOptions',
-                72
+                75
             );
         } else {
             $dataArr = [
@@ -324,7 +324,7 @@ class InstallData implements InstallDataInterface
                 'Hazardous Material',
                 'select',
                 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
-                73
+                76
             );
         }
 

@@ -391,7 +391,7 @@ class FedExLTLShipping extends AbstractCarrier implements
     private function getDims($_product, $dimOf)
     {
         $dimValue = $_product->getData('ts_dimensions_'.$dimOf);
-        if($dimValue != null){
+        if ($dimValue != null) {
             return $dimValue;
         }
 
@@ -406,7 +406,7 @@ class FedExLTLShipping extends AbstractCarrier implements
     {
         $hazmat = 'N';
         $insurance = 0;
-        if ($this->dataHelper->planInfo()['planNumber'] > 1){
+        if ($this->dataHelper->planInfo()['planNumber'] > 1) {
             $hazmat = ($_product->getData('en_hazmat')) ? 'Y' : 'N';
             $insurance = $_product->getData('en_insurance');
             if ($insurance && $this->registry->registry('en_insurance') === null) {

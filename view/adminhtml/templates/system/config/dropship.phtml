@@ -165,7 +165,7 @@ if ($plan == 3) {
             <?= $block->escapeHtml(__('In-store Pick Up')) ?>
         </h2>
 
-        <?php if (!$advancedPlan) : ?>
+        <?php if (!$advancedPlan): ?>
             <a class="is-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
                 <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
             </a>
@@ -227,7 +227,7 @@ if ($plan == 3) {
             <h2 class="wh-heading ld-heading-left" id="ds-ld-heading-left">
                 <?= $block->escapeHtml(__('Local Delivery')) ?>
             </h2>
-            <?php if (!$advancedPlan) : ?>
+            <?php if (!$advancedPlan): ?>
                 <a class="ld-heading-right" href="<?= $block->escapeHtml($block->enUrl())?>">
                     <?= $block->escapeHtml(__('Advanced Plan Required')) ?>
                 </a>

@@ -1044,9 +1044,9 @@ class Data extends AbstractHelper implements DataHelperInterface
                 foreach ($value as $key2 => $data) {
                     $rate += $data['rate'];
                     $code = $data['code'];
-                    if($key == 'hoat'){
+                    if ($key == 'hoat') {
                         $title = $data['titleMultiShip'];
-                    }else{
+                    } else {
                         $title = $this->getTitle('Freight', $isLiftGate, true);
                     }
                 }
