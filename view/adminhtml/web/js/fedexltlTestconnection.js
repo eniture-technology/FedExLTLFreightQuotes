@@ -84,3 +84,23 @@ function fedexLTLConnectSuccessFunction(data) {
     let message = data.success ? data.success : data.error;
     fedexLtResponseMessage('fedexLt-con-msg', styleClass, message);
 }
+
+/**
+ * Plan Refresh ajax call
+ * @param {object} $
+ * @param {string} ajaxURL
+ * @returns {function}
+ */
+function fedexLTLPlanRefresh(e){
+    let ajaxURL = e.getAttribute('planRefAjaxUrl');
+    console.log(ajaxURL);
+    let parameters = {};
+    fedexLtAjaxRequest(parameters, ajaxURL, fedexLTLPlanRefreshResponse);
+}
+
+/**
+ * Handle response
+ * @param {object} data
+ * @returns {void}
+ */
+function fedexLTLPlanRefreshResponse(data){}

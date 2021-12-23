@@ -83,7 +83,8 @@ class WarehouseTable extends Field
      */
     public function planNotice()
     {
-        return $this->dataHelper->setPlanNotice();
+        $planRefreshUrl = $this->getPlanRefreshUrl();
+        return $this->dataHelper->setPlanNotice($planRefreshUrl);
     }
 
     /**
@@ -97,5 +98,13 @@ class WarehouseTable extends Field
     public function enUrl()
     {
         return EnConstants::EN_URL;
+    }
+
+    /**
+     * @return url
+     */
+    public function getPlanRefreshUrl()
+    {
+        return $this->getbaseUrl().'fedexltlfreightquotes/Test/PlanRefresh/';
     }
 }

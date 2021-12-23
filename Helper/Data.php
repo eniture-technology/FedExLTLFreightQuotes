@@ -593,25 +593,32 @@ class Data extends AbstractHelper implements DataHelperInterface
     /**
      * @return string
      */
-    public function setPlanNotice()
+    public function setPlanNotice($planRefreshUrl = '')
     {
         $planPackage = $this->planInfo();
         if ($planPackage['storeType'] === null) {
             $planPackage = [];
         }
-        return $this->displayPlanMessages($planPackage);
+        return $this->displayPlanMessages($planPackage, $planRefreshUrl);
     }
 
     /**
      * @param $planPackage
      * @return Phrase
      */
-    public function displayPlanMessages($planPackage)
+    public function displayPlanMessages($planPackage, $planRefreshUrl = '')
     {
-        $planMsg = __('Eniture - Fedex LTL Freight Quotes plan subscription is inactive. Please activate plan subscription from <a target="_blank" href="https://eniture.com/magento2-fedex-ltl-freight/">here</a>.');
+        $planRefreshLink = '';
+        if (!empty($planRefreshUrl)) {
+            $planRefreshLink = ' <a href="javascript:void(0)" id="plan-refresh-link" planRefAjaxUrl = '.$planRefreshUrl.' onclick="fedexLTLPlanRefresh(this)" >Click here</a> to refresh the plan (please sign-in again after this action).';
+            $planMsg = __('The subscription to the Fedex LTL Freight Quotes module is inactive. If you believe the subscription should be active and you recently changed plans (e.g. upgraded your plan), your firewall may be blocking confirmation from our licensing system. To resolve the situation, <a href="javascript:void(0)" id="plan-refresh-link" planRefAjaxUrl = '.$planRefreshUrl.' onclick="fedexLTLPlanRefresh(this)" >click this link</a> and then sign in again. If this does not resolve the issue, log in to eniture.com and verify the license status.');
+        }else{
+            $planMsg = __('The subscription to the Fedex LTL Freight Quotes module is inactive. Please log into eniture.com and update your license.');
+        }
+
         if (isset($planPackage) && !empty($planPackage)) {
             if ($planPackage['planNumber'] !== null && $planPackage['planNumber'] != '-1') {
-                $planMsg = __('Eniture - Fedex LTL Freight Quotes is currently on the ' . $planPackage['planName'] . '. Your plan will expire within ' . $planPackage['expireDays'] . ' days and plan renews on ' . $planPackage['expiryDate'] . '.');
+                $planMsg = __('The Fedex LTL Freight Quotes from Eniture Technology is currently on the '.$planPackage['planName'].' and will renew on '.$planPackage['expiryDate'].'. If this does not reflect changes made to the subscription plan'.$planRefreshLink.'.');
             }
         }
         return $planMsg;

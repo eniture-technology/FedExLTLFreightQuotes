@@ -2,7 +2,6 @@
 namespace Eniture\FedExLTLFreightQuotes\Setup;
 
 use Eniture\FedExLTLFreightQuotes\App\State;
-use Eniture\FedExLTLFreightQuotes\Cron\PlanUpgrade;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -72,10 +71,6 @@ class InstallData implements InstallDataInterface
      */
     private $resourceConfig;
     /**
-     * @var PlanUpgrade
-     */
-    private $palnUpgrade;
-    /**
      * @var Config
      */
     private $eavConfig;
@@ -94,7 +89,6 @@ class InstallData implements InstallDataInterface
      * @param ResourceConnection $resource
      * @param Curl $curl
      * @param ConfigInterface $resourceConfig
-     * @param PlanUpgrade $planUpgrade
      * @param Config $eavConfig
      */
     public function __construct(
@@ -105,7 +99,6 @@ class InstallData implements InstallDataInterface
         ResourceConnection $resource,
         Curl $curl,
         ConfigInterface $resourceConfig,
-        PlanUpgrade $planUpgrade,
         Config $eavConfig
     ) {
         $this->eavSetupFactory      = $eavSetupFactory;
@@ -116,7 +109,6 @@ class InstallData implements InstallDataInterface
 
         $this->curl                 = $curl;
         $this->resourceConfig       = $resourceConfig;
-        $this->palnUpgrade          = $planUpgrade;
         $this->eavConfig            = $eavConfig;
         $this->state                = $state;
     }
@@ -130,8 +122,6 @@ class InstallData implements InstallDataInterface
         ModuleContextInterface $context
     ) {
         $this->state->validateAreaCode();
-        // Check plan info of current module
-        $this->palnUpgrade->execute();
         $installer = $setup;
         $installer->startSetup();
         /** @var EavSetup $eavSetup */

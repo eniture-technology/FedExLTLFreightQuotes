@@ -168,7 +168,8 @@ class ResidentialAddressDetection extends Field
      */
     public function fedexLtlPlanNotice()
     {
-        return $this->dataHelper->setPlanNotice();
+        $planRefreshUrl = $this->getPlanRefreshUrl();
+        return $this->dataHelper->setPlanNotice($planRefreshUrl);
     }
 
     /**
@@ -177,5 +178,13 @@ class ResidentialAddressDetection extends Field
     public function planRstrctnQuoteSettng()
     {
         return json_encode($this->dataHelper->quoteSettingFieldsToRestrict());
+    }
+
+    /**
+     * @return url
+     */
+    public function getPlanRefreshUrl()
+    {
+        return $this->getbaseUrl().'fedexltlfreightquotes/Test/PlanRefresh/';
     }
 }

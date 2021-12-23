@@ -1,7 +1,7 @@
 <script>
     require(['jquery', 'domReady!'], function ($) {
         let carrierDiv = '#fedexltlconnsettings_first-head';
-        fedexLtCurrentPlanNote($, '<?php echo $block->escapeHtml($block->planNotice(), ['a', 'div']); ?>', carrierDiv);
+        fedexLtCurrentPlanNote($, '<?php echo $block->planNotice(); ?>', carrierDiv);
         fedexLtNotesToggleHandling($, '<?php echo $block->conMessage(); ?>', '.fedexLt-conn-setting-note', carrierDiv);
     });
 </script>

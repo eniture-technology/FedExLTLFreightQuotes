@@ -71,7 +71,7 @@ class FedExLTLGenerateRequestData
             'serverName' => $this->request->getServer('SERVER_NAME'),
             'carrierMode' => 'pro',
             'quotestType' => 'ltl',
-            'version' => '1.1.5',
+            'version' => '1.1.6',
             //This check is made on Paul/customer request
             'returnQuotesOnExceedWeight' => $this->getConfigData('weightExeeds') > 0 ? 10 : 0,
             'api' => $this->getApiInfoArr(),
