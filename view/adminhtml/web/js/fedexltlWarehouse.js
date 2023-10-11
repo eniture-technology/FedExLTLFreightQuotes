@@ -111,7 +111,7 @@ require(
             $(formId + ' #wh-origin-state').val('');
             $(formId + ' #wh-origin-country').val('');
             fedexLtGetAddressFromZip(ajaxUrl, this, fedexLtGetAddressResSettings);
-            $(formId).validation('clearError');
+            $(formId).validation().validation('clearError');
         });
     }
 );

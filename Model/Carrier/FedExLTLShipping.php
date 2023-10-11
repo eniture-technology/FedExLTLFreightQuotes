@@ -202,6 +202,7 @@ class FedExLTLShipping extends AbstractCarrier implements
         if (null !== $getQuotesFromSession) {
             return $getQuotesFromSession;
         }
+        
         $ItemsList = $request->getAllItems();
         $receiverZipCode = $request->getDestPostcode();
         $package = $this->getShipmentPackageRequest($ItemsList, $receiverZipCode, $request);
@@ -219,18 +220,6 @@ class FedExLTLShipping extends AbstractCarrier implements
         }
         $url = EnConstants::QUOTES_URL;
         $quotes = $this->dataHelper->sendCurlRequest($url, $requestArr);
-        // Debug point will print data if en_print_query=1
-        if ($this->printQuery()) {
-            $printData = [
-                'url' => $url,
-                'buildQuery' => http_build_query($requestArr),
-                'request' => $requestArr,
-                'quotes' => $quotes];
-            print_r('<pre>');
-            print_r($printData);
-            print_r('</pre>');
-            return;
-        }
 
         $quotesResult = $this->manageAllQuotes->getQuotesResultArr($quotes);
         $this->session->setEnShippingQuotes($quotesResult);
@@ -495,13 +484,4 @@ class FedExLTLShipping extends AbstractCarrier implements
         }
     }
 
-    public function printQuery()
-    {
-        $printQuery = 0;
-        parse_str(parse_url($this->request->getServer('HTTP_REFERER'), PHP_URL_QUERY), $query);
-        if (!empty($query)) {
-            $printQuery = ($query['en_print_query']) ?? 0;
-        }
-        return $printQuery;
-    }
 }

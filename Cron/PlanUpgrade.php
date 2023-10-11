@@ -66,7 +66,12 @@ class PlanUpgrade
         ]);
         $this->curl->post($this->curlUrl, $postData);
         $output = $this->curl->getBody();
-        $result = json_decode($output, true);
+        
+        if(!empty($output) && is_string($output)){
+            $result = json_decode($output, true);
+        }else{
+            $result = [];
+        }
 
         $plan = $result['pakg_group'] ?? '';
         $expireDay = $result['pakg_duration'] ?? '';
@@ -87,7 +92,7 @@ class PlanUpgrade
         $this->saveConfigurations('eniture/ENFedExLTL/expiredate', "$expiryDate");
         $this->saveConfigurations('eniture/ENFedExLTL/storetype', "$planType");
         $this->saveConfigurations('eniture/ENFedExLTL/pakgprice', "$pkgPrice");
-        $this->saveConfigurations('eniture/ENFedExLTL/label', "Eniture - Fedex LTL Freight Quotes");
+        $this->saveConfigurations('eniture/ENFedExLTL/label', "ENITURE LTL FREIGHT QUOTES - FOR FEDEX");
 
         $this->logger->info($output);
     }

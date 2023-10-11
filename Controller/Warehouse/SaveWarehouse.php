@@ -44,7 +44,7 @@ class SaveWarehouse extends Action
         $updateInSpLd = 'no';
         $saveWhData = [];
         foreach ($this->getRequest()->getParams() as $key => $post) {
-            $saveWhData[$key] = filter_var($post, FILTER_SANITIZE_STRING);
+            $saveWhData[$key] = filter_var($post);
         }
         $inputDataArr = $this->dataHelper->originArray($saveWhData);
         $validateData = $this->dataHelper->validatedPostData($inputDataArr);

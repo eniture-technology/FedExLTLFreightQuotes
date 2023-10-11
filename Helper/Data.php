@@ -383,8 +383,18 @@ class Data extends AbstractHelper implements DataHelperInterface
     {
         $return = [];
         $whCollection = $this->fetchWarehouseWithID($data['location'], $data['locationId']);
-        $inStore = json_decode($whCollection[0]['in_store'], true);
-        $locDel = json_decode($whCollection[0]['local_delivery'], true);
+
+        if(!empty($whCollection[0]['in_store']) && is_string($whCollection[0]['in_store'])){
+            $inStore = json_decode($whCollection[0]['in_store'], true);
+        }else{
+            $inStore = [];
+        }
+        
+        if(!empty($whCollection[0]['local_delivery']) && is_string($whCollection[0]['local_delivery'])){
+            $locDel = json_decode($whCollection[0]['local_delivery'], true);
+        }else{
+            $locDel = [];
+        }
 
         if ($inStore) {
             $inStoreTitle = $inStore['checkout_desc_store_pickup'];
@@ -530,7 +540,13 @@ class Data extends AbstractHelper implements DataHelperInterface
         try {
             $this->curl->post($url, $fieldString);
             $output = $this->curl->getBody();
-            $result = json_decode($output, $isAssocArray);
+            
+            if(!empty($output) && is_string($output)){
+                $result = json_decode($output, $isAssocArray);
+            }else{
+                $result = ($isAssocArray) ? [] : '';
+            }
+
         } catch (\Throwable $e) {
             $result = [];
         }

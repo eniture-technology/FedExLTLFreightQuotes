@@ -49,7 +49,7 @@ class TestConnection extends Action
     {
         $credentials = [];
         foreach ($this->getRequest()->getParams() as $key => $data) {
-            $credentials[$key] = filter_var($data, FILTER_SANITIZE_STRING);
+            $credentials[$key] = filter_var($data);
         }
         $postData = [
             'testConnectionCarrier' => 'fedex',

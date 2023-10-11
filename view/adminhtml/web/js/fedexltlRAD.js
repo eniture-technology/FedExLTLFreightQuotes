@@ -22,7 +22,7 @@ require(['jquery', 'domReady!'], function ($) {
     /**
      * windows onload
      */
-    $(window).load(function () {
+    $(window).on('load', function () {
         if ($("#suspend-rad-use").length > 0 && $("#suspend-rad-use").is(":disabled") == false) {
             if (!isdisabled) {
                 if (($('#suspend-rad-use:checkbox:checked').length) > 0) {

@@ -93,7 +93,6 @@ function fedexLTLConnectSuccessFunction(data) {
  */
 function fedexLTLPlanRefresh(e){
     let ajaxURL = e.getAttribute('planRefAjaxUrl');
-    console.log(ajaxURL);
     let parameters = {};
     fedexLtAjaxRequest(parameters, ajaxURL, fedexLTLPlanRefreshResponse);
 }
