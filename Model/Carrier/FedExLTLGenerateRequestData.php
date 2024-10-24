@@ -71,7 +71,7 @@ class FedExLTLGenerateRequestData
             'serverName' => $this->request->getServer('SERVER_NAME'),
             'carrierMode' => 'pro',
             'quotestType' => 'ltl',
-            'version' => '2.0.0',
+            'version' => '2.1.0',
             //This check is made on Paul/customer request
             'returnQuotesOnExceedWeight' => $this->getConfigData('weightExeeds') > 0 ? 10 : 0,
             'api' => $this->getApiInfoArr(),
@@ -179,11 +179,9 @@ class FedExLTLGenerateRequestData
 
         $percentDiscount = $this->getConfigData('fedexLtlDiscounts') == 'promotion' ? $this->getConfigData('discountPercent') : '';
 
-        return [
-            'key' => $this->getConfigData('fedexLtlAuthenticationKey'),
-            'password' => $this->getConfigData('fedexLtlPassword'),
-            'AccountNumber' => $this->getConfigData('fedexLtlAccountNumber'),
-            'MeterNumber' => $this->getConfigData('fedexLtlMeterNumber'),
+        $endPoint = $this->getConfigData('fedexLtlEndPoint');
+
+        $apiArray = [
             'billingLineAddress' => $this->getConfigData('fedexLtlBillingAddress'),
             'billingCity' => $this->getConfigData('fedexLtlBillingCity'),
             'billingState' => $this->getConfigData('fedexLtlBillingState'),
@@ -211,6 +209,19 @@ class FedExLTLGenerateRequestData
             ],
             'accessorial' => $liftGate,
         ];
+
+        if(empty($endPoint) || $endPoint == '1'){
+            $apiArray['key'] = $this->getConfigData('fedexLtlAuthenticationKey') ?? '';
+            $apiArray['AccountNumber'] = $this->getConfigData('fedexLtlAccountNumber') ?? '';
+            $apiArray['MeterNumber'] = $this->getConfigData('fedexLtlMeterNumber') ?? '';
+            $apiArray['password'] = $this->getConfigData('fedexLtlPassword') ?? '';
+        }else{
+            $apiArray['requestForNewAPI'] = '1';
+            $apiArray['clientId'] = $this->getConfigData('fedexLtlClientId') ?? '';
+            $apiArray['clientSecret'] = $this->getConfigData('fedexLtlClientSecret') ?? '';
+        }
+
+        return $apiArray;
     }
 
     /**

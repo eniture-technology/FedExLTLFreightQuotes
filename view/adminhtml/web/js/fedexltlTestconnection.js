@@ -50,12 +50,8 @@ require(['jquery', 'domReady!'], function ($) {
  */
 function fedexLTLTestConnectionAjaxCall($, ajaxURL) {
     let inputCommonId = '#fedexltlconnsettings_first_';
-
+    let endPoint = $(inputCommonId + 'fedexLtlEndPoint').val();
     let credentials = {
-        AccountNumber               : $(inputCommonId + "fedexLtlAccountNumber").val(),
-        MeterNumber                 : $(inputCommonId + "fedexLtlMeterNumber").val(),
-        password                    : $(inputCommonId + "fedexLtlPassword").val(),
-        key                         : $(inputCommonId + "fedexLtlAuthenticationKey").val(),
         shippingChargesAccount      : $(inputCommonId + "fedexLtlShipperAccountNumber").val(),
         billingLineAddress          : $(inputCommonId + "fedexLtlBillingAddress").val(),
         billingCountry              : $(inputCommonId + "fedexLtlBillingCountry").val(),
@@ -70,6 +66,20 @@ function fedexLTLTestConnectionAjaxCall($, ajaxURL) {
         thirdPartyAccount           : $(inputCommonId + "fedexLtlThirdPartyAccountNumber").val(),
         licence_key                 : $(inputCommonId + "fedexLtlLicenseKey").val(),
     };
+
+    if (endPoint === '1') { 
+        credentials.endPoint = 'legacy';
+        credentials.AccountNumber = $(inputCommonId + "fedexLtlAccountNumber").val();
+        credentials.MeterNumber = $(inputCommonId + "fedexLtlMeterNumber").val();
+        credentials.password = $(inputCommonId + "fedexLtlPassword").val();
+        credentials.key = $(inputCommonId + "fedexLtlAuthenticationKey").val();
+    }else{
+        credentials.endPoint = 'new';
+        credentials.clientId = $(inputCommonId + "fedexLtlClientId").val();
+        credentials.clientSecret = $(inputCommonId + "fedexLtlClientSecret").val();
+    }
+
+    
 
     fedexLtAjaxRequest(credentials, ajaxURL, fedexLTLConnectSuccessFunction);
 }

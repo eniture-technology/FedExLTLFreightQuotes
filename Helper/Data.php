@@ -121,6 +121,62 @@ class Data extends AbstractHelper implements DataHelperInterface
      * @var bool
      */
     private $isMultiShipment = false;
+    /**
+     * @var string
+     */
+    public $fedexLtlLabelAs;
+    /**
+     * @var string
+     */
+    public $fedexLtlQuoteServices;
+    /**
+     * @var string
+     */
+    public $hndlngFee;
+    /**
+     * @var string
+     */
+    public $symbolicHndlngFee;
+    /**
+     * @var string
+     */
+    public $fedexLtlDiscounts;
+    /**
+     * @var string
+     */
+    public $discountPercent;
+    /**
+     * @var string
+     */
+    public $showDlvryEstimate;
+    /**
+     * @var string
+     */
+    public $residentialDlvry;
+    /**
+     * @var string
+     */
+    public $OfferLiftgateAsAnOption;
+    /**
+     * @var string
+     */
+    public $RADforLiftgate;
+    /**
+     * @var string
+     */
+    public $liftGate;
+    /**
+     * @var string
+     */
+    public $resiLabel;
+    /**
+     * @var string
+     */
+    public $lgLabel;
+    /**
+     * @var string
+     */
+    public $resiLgLabel;
 
     /**
      * Data constructor.
@@ -495,22 +551,18 @@ class Data extends AbstractHelper implements DataHelperInterface
      */
     public function quoteSettingsData()
     {
-        $fields = [
-            'fedexLtlLabelAs' => 'fedexLtlLabelAs',
-            'fedexLtlQuoteServices' => 'fedexLtlQuoteServices',
-            'hndlngFee' => 'hndlngFee',
-            'symbolicHndlngFee' => 'symbolicHndlngFee',
-            'fedexLtlDiscounts' => 'fedexLtlDiscounts',
-            'discountPercent' => 'discountPercent',
-            'showDlvryEstimate' => 'showDlvryEstimate',
-            'residentialDlvry' => 'residentialDlvry',
-            'OfferLiftgateAsAnOption' => 'OfferLiftgateAsAnOption',
-            'RADforLiftgate' => 'RADforLiftgate',
-            'liftGate' => 'liftGateDlvry',
-        ];
-        foreach ($fields as $key => $field) {
-            $this->$key = $this->configSettings[$field] ?? '';
-        }
+        $this->fedexLtlLabelAs = $this->configSettings['fedexLtlLabelAs'] ?? '';
+        $this->fedexLtlQuoteServices = $this->configSettings['fedexLtlQuoteServices'] ?? '';
+        $this->hndlngFee = $this->configSettings['hndlngFee'] ?? '';
+        $this->symbolicHndlngFee = $this->configSettings['symbolicHndlngFee'] ?? '';
+        $this->fedexLtlDiscounts = $this->configSettings['fedexLtlDiscounts'] ?? '';
+        $this->discountPercent = $this->configSettings['discountPercent'] ?? '';
+        $this->showDlvryEstimate = $this->configSettings['showDlvryEstimate'] ?? '';
+        $this->residentialDlvry = $this->configSettings['residentialDlvry'] ?? '';
+        $this->OfferLiftgateAsAnOption = $this->configSettings['OfferLiftgateAsAnOption'] ?? '';
+        $this->RADforLiftgate = $this->configSettings['RADforLiftgate'] ?? '';
+        $this->liftGate = $this->configSettings['liftGateDlvry'] ?? '';
+
         $this->resiLabel = ' with residential delivery';
         $this->lgLabel = ' with lift gate delivery';
         $this->resiLgLabel = ' with residential delivery and lift gate delivery';
@@ -739,23 +791,66 @@ class Data extends AbstractHelper implements DataHelperInterface
         }
         $title = $this->isMultiShipment ? 'Freight' : $this->getMethodName($servicesArray->serviceType);
         $titleWdServiceName = $this->getMethodName($servicesArray->serviceType);
-        if ($hoAt->distance->Value > 0) {
+        if(isset($hoAt->distance->value) && $hoAt->distance->value > 0){
+            $distance = $hoAt->distance->value . ' miles away |';
+        }elseif(isset($hoAt->distance->Value) && $hoAt->distance->Value > 0) {
             $distance = $hoAt->distance->Value . ' miles away |';
         }
-        if (is_array($hoAt->address->StreetLines)) {
-            foreach ($hoAt->address->StreetLines as $key => $value) {
+
+        if(isset($hoAt->address->streetLines)){
+            $streetAddress = $hoAt->address->streetLines;
+        }elseif(isset($hoAt->address->StreetLines)){
+            $streetAddress = $hoAt->address->StreetLines;
+        }else{
+            $streetAddress = '';
+        }
+        
+        if (is_array($streetAddress)) {
+            foreach ($streetAddress as $key => $value) {
                 $addSpace = '';
                 if ($key > 0) {
                     $addSpace = ' ';
                 }
                 $hoAtAddress .= $addSpace . $value;
             }
-        } elseif (is_string($hoAt->address->StreetLines)) {
-            $hoAtAddress = $hoAt->address->StreetLines;
+        } elseif (is_string($streetAddress)) {
+            $hoAtAddress = $streetAddress;
         }
-        $address = $hoAtAddress . ', ' . $hoAt->address->City . ' ' . $hoAt->address->StateOrProvinceCode . ' ' . $hoAt->address->PostalCode . ' |';
 
-        $tel = 'T: ' . $hoAt->custServicePhoneNbr->PhoneNumber;
+        if(isset($hoAt->address->city)){
+            $city = $hoAt->address->city;
+        }elseif(isset($hoAt->address->City)){
+            $city = $hoAt->address->City;
+        }else{
+            $city = '';
+        }
+
+        if(isset($hoAt->address->stateOrProvinceCode)){
+            $stateOrProvinceCode = $hoAt->address->stateOrProvinceCode;
+        }elseif(isset($hoAt->address->StateOrProvinceCode)){
+            $stateOrProvinceCode = $hoAt->address->StateOrProvinceCode;
+        }else{
+            $stateOrProvinceCode = '';
+        }
+
+        if(isset($hoAt->address->postalCode)){
+            $postalCode = $hoAt->address->postalCode;
+        }elseif(isset($hoAt->address->PostalCode)){
+            $postalCode = $hoAt->address->PostalCode;
+        }else{
+            $postalCode = '';
+        }
+
+        $address = $hoAtAddress . ', ' . $city . ' ' . $stateOrProvinceCode . ' ' . $postalCode . ' |';
+
+        if(isset($hoAt->custServicePhoneNbr->phoneNumber)){
+            $tel = 'T: ' . $hoAt->custServicePhoneNbr->phoneNumber;
+        }elseif(isset($hoAt->custServicePhoneNbr->PhoneNumber)){
+            $tel = 'T: ' . $hoAt->custServicePhoneNbr->PhoneNumber;
+        }else{
+            $tel = '';
+        }
+        
         $this->hoatLabel = ' (T)' . ' Hold at terminal  | ' . $distance . $address . $tel;
 
         return [
@@ -937,6 +1032,16 @@ class Data extends AbstractHelper implements DataHelperInterface
                     if (isset($surcharge->SurchargeType) && $surcharge->SurchargeType == 'LIFTGATE_DELIVERY') {
                          $lgCost = $surcharge->Amount->Amount;
                     }
+                }
+            }else if(isset($quotes->Surcharges)){
+                if(is_array($quotes->Surcharges)){
+                    foreach ($quotes->Surcharges as $key => $surcharge) {
+                        if (isset($surcharge->type) && $surcharge->type == 'LIFTGATE_DELIVERY') {
+                            $lgCost = $surcharge->amount;
+                        }
+                    }
+                }else if(isset($quotes->Surcharges->type) && $quotes->Surcharges->type == 'LIFTGATE_DELIVERY'){
+                    $lgCost = $quotes->Surcharges->amount;
                 }
             }
         }

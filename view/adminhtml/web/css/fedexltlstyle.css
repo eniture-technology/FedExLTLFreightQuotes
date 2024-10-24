@@ -191,14 +191,16 @@ label[for="origin_country"]:after {
     color: red;
 }
 
-label[for="fedexltlconnsettings_first_fedexLtlAccountNumber"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlMeterNumber"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlPassword"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlAuthenticationKey"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlShipperAccountNumber"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlBillingAddress"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlPhysicalAddress"]:after,
-label[for="fedexltlconnsettings_first_fedexLtlLicenseKey"]:after {
+label[for="fedexltlconnsettings_first_fedexLtlAccountNumber"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlMeterNumber"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlPassword"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlAuthenticationKey"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlShipperAccountNumber"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlBillingAddress"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlPhysicalAddress"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlClientId"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlClientSecret"]:not(.mage-error):after,
+label[for="fedexltlconnsettings_first_fedexLtlLicenseKey"]:not(.mage-error):after {
     content: '*';
     color: red;
     padding: 5px;

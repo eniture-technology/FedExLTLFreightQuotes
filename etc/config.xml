@@ -2,6 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
+        <fedexltlconnsettings>
+            <first>
+                <fedexLtlEndPoint>1</fedexLtlEndPoint>
+            </first>
+        </fedexltlconnsettings>
         <fedexLtlQuoteSetting>
             <third>
                 <fedexLtlQuoteServices>FEDEX_FREIGHT_ECONOMY,FEDEX_FREIGHT_PRIORITY</fedexLtlQuoteServices>

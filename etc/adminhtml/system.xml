@@ -33,24 +33,57 @@
             <group id="first" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Connection Settings</label>
 
+                <field id="fedexLtlEndPoint" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Which API will you connect to?</label>
+                    <source_model>Eniture\FedExLTLFreightQuotes\Model\Source\ApiEndPoint</source_model>
+                </field>
+
+                <field id="fedexLtlClientId" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <validate>required-entry validate-length maximum-length-100</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">2</field>
+                    </depends>
+                </field>
+                <field id="fedexLtlClientSecret" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret Key</label>
+                    <validate>required-entry validate-length maximum-length-100</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">2</field>
+                    </depends>
+                </field>
+
                 <field id="fedexLtlAccountNumber" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Billing Account Number</label>
                     <validate>required-entry</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">1</field>
+                    </depends>
                 </field>
 
                 <field id="fedexLtlMeterNumber" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Meter Number</label>
                     <validate>required-entry</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">1</field>
+                    </depends>
                 </field>
 
                 <field id="fedexLtlPassword" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Password</label>
                     <validate>required-entry</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">1</field>
+                    </depends>
                 </field>
 
                 <field id="fedexLtlAuthenticationKey" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Authentication Key</label>
                     <validate>required-entry</validate>
+                    <depends>
+                        <field id="fedexLtlEndPoint">1</field>
+                    </depends>
                 </field>
 
                 <field id="fedexLtlShipperAccountNumber" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">

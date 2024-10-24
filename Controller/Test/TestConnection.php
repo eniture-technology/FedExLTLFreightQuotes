@@ -53,10 +53,6 @@ class TestConnection extends Action
         }
         $postData = [
             'testConnectionCarrier' => 'fedex',
-            'AccountNumber' => $credentials['AccountNumber'],
-            'MeterNumber' => $credentials['MeterNumber'],
-            'password' => $credentials['password'],
-            'key' => $credentials['key'],
             'shippingChargesAccount' => $credentials['shippingChargesAccount'],
             'billingLineAddress' => $credentials['billingLineAddress'],
             'billingCountry' => $credentials['billingCountry'],
@@ -77,6 +73,17 @@ class TestConnection extends Action
             'accountType' => (!empty($credentials['thirdPartyAccount'])) ? 'thirdParty' : 'shipper',
         ];
 
+        if(isset($credentials['endPoint']) && 'new' == $credentials['endPoint']){
+            $postData['requestForNewAPI'] = '1';
+            $postData['clientId'] = $credentials['clientId'];
+            $postData['clientSecret'] = $credentials['clientSecret'];
+        }else{
+            $postData['AccountNumber'] = $credentials['AccountNumber'];
+            $postData['MeterNumber'] = $credentials['MeterNumber'];
+            $postData['password'] = $credentials['password'];
+            $postData['key'] = $credentials['key'];
+        }
+
         $response = $this->dataHelper->sendCurlRequest(EnConstants::TEST_CONN_URL, $postData);
         $result = $this->testConnResponse($response);
 
@@ -95,12 +102,13 @@ class TestConnection extends Action
         $errorMsg = 'The credentials entered did not result in a successful test. Confirm your credentials and try again.';
 
         if (isset($data->severity) && $data->severity == 'ERROR') {
-            $response['error'] = $errorMsg;
+            $response['error'] = !empty($result->Message) ? $result->Message : $errorMsg;
         } elseif (isset($data->error) && !is_int($data->error)) {
             $response['error'] = $data->error;
         } else {
             $response['success'] = $successMsg;
         }
+        
         return json_encode($response);
     }
 
